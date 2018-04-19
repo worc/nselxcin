@@ -2,7 +2,7 @@ import DataType from 'sequelize';
 import Model from '../sequelize';
 
 import Workbook from './Workbook';
-import PhraseList from './PhraseList';
+import PhraseList from './LessonPhraseOrder';
 
 const Lesson = Model.define(
   'Lesson',
