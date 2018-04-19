@@ -1,4 +1,5 @@
 import React from "react";
+import Workbook from "./Workbook";
 
 class App extends React.Component{
     render() {
@@ -11,7 +12,7 @@ class App extends React.Component{
                 height: '100%',
                 padding: '0 10px'
             }}>
-                hello world
+                <Workbook />
             </div>
         )
     }

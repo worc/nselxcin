@@ -12,9 +12,9 @@ module.exports = [
             filename: "server.js"
         },
 
-        resolve: {
-            modules: ['shared', 'node_modules']
-        },
+        // resolve: {
+        //     modules: ['shared', 'node_modules']
+        // },
 
         module: {
             rules: [
@@ -35,9 +35,9 @@ module.exports = [
             filename: 'client.js',
         },
 
-        resolve: {
-            modules: ['shared', 'node_modules']
-        },
+        // resolve: {
+        //     modules: ['shared', 'node_modules']
+        // },
 
         module: {
             rules: [
