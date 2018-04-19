@@ -1,7 +1,7 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-import PhraseList from './PhraseList';
+import LessonPhraseOrder from './LessonPhraseOrder';
 
 const Phrase = Model.define(
   'Phrase',
@@ -23,6 +23,6 @@ const Phrase = Model.define(
   }
 );
 
-Phrase.belongsToMany(PhraseList);
+Phrase.belongsToMany(LessonPhraseOrder);
 
 export default Phrase;
