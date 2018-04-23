@@ -33,7 +33,7 @@ export default class Select {
     fromLessons(workbookId) {
         const sql = `select * from Lessons where Lessons.workbookId = ?`;
         const params = [workbookId];
-        this.select(sql, params);
+        return this.select(sql, params);
     }
 
     fromLessonPhrases(lessonId) {
