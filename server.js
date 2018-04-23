@@ -5,6 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 import path from 'path';
 
 import App from './src/App';
+import Api from './routes/Api';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +32,8 @@ const renderPage = (title, app) => `
 app.use("/static/client.js", express.static(path.join(process.cwd(), "dist/client.js")));
 app.use("/static/client.min.js", express.static(path.join(process.cwd(), "dist/client.min.js")));
 app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.css')));
+
+app.use('/api', Api);
 
 app.get('/*', (req, res) => {
     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
