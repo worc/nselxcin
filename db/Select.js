@@ -38,7 +38,6 @@ export default class Select {
     }
 
     static fromLessonPhrases(lessonId) {
-        console.log('lessonId', lessonId);
         const sql = `
             select Phrases.salish, Phrases.english, Phrases.audioUrl, LessonPhrases.viewOrder from Phrases
             inner join LessonPhrases on Phrases.id = LessonPhrases.phraseId and LessonPhrases.lessonId = ?
