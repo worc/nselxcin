@@ -18,9 +18,9 @@ const logError = function(error) {
 let db = new sqlite3.Database('./nselxcin.db', logError);
 
 db.serialize(() => {
-    db.run('drop table if exists workbooks');
-    db.run(`create table workbooks(
-        id integer primary key,
+    db.run('drop table if exists Workbooks');
+    db.run(`create table Workbooks(
+        id integer primary key autoincrement,
         title text,
         subtitle text,
         authors text,
@@ -28,30 +28,30 @@ db.serialize(() => {
         version text
     )`);
 
-    db.run('drop table if exists lessons');
-    db.run(`create table lessons(
-        id integer primary key,
-        workbookId integer,
+    db.run('drop table if exists Lessons');
+    db.run(`create table Lessons(
+        id integer primary key autoincrement,
+        workbookId integer not null,
         lessonNumber integer,
         lessonName text,
-        foreign key(workbookId) references workbooks(id)
+        foreign key(workbookId) references Workbooks(id)
     )`);
 
-    db.run('drop table if exists phrases');
-    db.run(`create table phrases(
-        id integer primary key,
+    db.run('drop table if exists Phrases');
+    db.run(`create table Phrases(
+        id integer primary key autoincrement,
         salish text,
         english text,
         audioUrl text    
     )`);
 
-    db.run('drop table if exists phraselists');
-    db.run(`create table phraselists(
-        lessonId integer,
-        phraseId integer,
-        view_order integer default 0,
-        foreign key(lessonId) references lessons(id),
-        foreign key(phraseId) references phrases(id)
+    db.run('drop table if exists LessonPhrases');
+    db.run(`create table LessonPhrases(
+        lessonId integer not null,
+        phraseId integer not null,
+        viewOrder integer default 0,
+        foreign key(lessonId) references Lessons(id),
+        foreign key(phraseId) references Phrases(id)
     )`);
 });
 
