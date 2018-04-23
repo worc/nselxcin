@@ -8,7 +8,7 @@ const logOutcome = function(resolve, reject) {
             console.error(error.message);
             reject(error.message);
         } else {
-            console.log('success:', this);
+            console.log('success:', rows);
             resolve(rows);
         }
     };
@@ -31,7 +31,10 @@ export default class Select {
     }
 
     fromLessons(workbookId) {
-        const sql = `select * from Lessons where Lessons.workbookId = ?`;
+        const sql = `
+            select * from Lessons where Lessons.workbookId = ?
+            order by Lessons.lessonNumber asc
+        `;
         const params = [workbookId];
         return this.select(sql, params);
     }
