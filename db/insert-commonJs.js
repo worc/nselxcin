@@ -44,8 +44,15 @@ function intoLessons(workbookId, lessonNumber, lessonName) {
     insert(sql, params);
 }
 
+function intoLessonPhraseOrder(lessonId, phraseId, viewOrder) {
+    const sql = `insert into lessonPhraseOrders(lessonId, phraseId, viewOrder) values(?, ?, ?)`;
+    const params = [lessonId, phraseId, viewOrder];
+    insert(sql, params);
+}
+
 module.exports = {
     intoWorkbooks,
     intoPhrases,
-    intoLessons
+    intoLessons,
+    intoLessonPhraseOrder
 };

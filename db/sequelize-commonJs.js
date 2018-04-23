@@ -15,22 +15,22 @@ sequelize.authenticate().then(() => {
 
 //  MODELS
 const Workbook = sequelize.define('Workbook', {
-    title: Sequelize.STRING,
-    subtitle: Sequelize.STRING,
-    authors: Sequelize.STRING,
-    version: Sequelize.STRING,
-    edition: Sequelize.STRING
+    title: Sequelize.TEXT,
+    subtitle: Sequelize.TEXT,
+    authors: Sequelize.TEXT,
+    version: Sequelize.TEXT,
+    edition: Sequelize.TEXT
 });
 
 const Lesson = sequelize.define('Lesson', {
     lessonNumber: Sequelize.INTEGER,
-    lessonName: Sequelize.STRING
+    lessonName: Sequelize.TEXT
 });
 
 const Phrase = sequelize.define('Phrase', {
-    salish: Sequelize.STRING,
-    english: Sequelize.STRING,
-    audioUrl: Sequelize.STRING
+    salish: Sequelize.TEXT,
+    english: Sequelize.TEXT,
+    audioUrl: Sequelize.TEXT
 });
 
 const LessonPhraseOrder = sequelize.define('LessonPhraseOrder', {
@@ -46,22 +46,6 @@ Workbook.hasMany(Lesson, { foreignKey: 'workbookId', sourceKey: 'id'});
 Lesson.hasMany(LessonPhraseOrder, { as: 'lessonId' });
 Phrase.hasMany(LessonPhraseOrder, { as: 'phraseId' });
 
-// Workbook.sync({ force: true }).then(() => {
-//     return Workbook.create({
-//         title: 'nselxcin 1',
-//         subtitle: 'beginner ad stuff'
-//     })
-// });
-
-sequelize.sync({ force: true }).then(() => {
-    Workbook.create({
-        title: 'nselxcin 1',
-        subtitle: 'beginner ad stuff'
-    }).then(() => {
-        Lesson.create({
-            lessonNumber: 1,
-            lessonName: 'Greetings'
-        });
-    });
+module.exports = sequelize.sync({ force: true }).then(() => {
+    console.log('database created');
 });
-
