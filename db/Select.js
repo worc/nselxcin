@@ -14,37 +14,36 @@ const logOutcome = function(resolve, reject) {
     };
 };
 
+const db = new sqlite3.Database(__dirname + '/nselxcin.db', logOutcome(() => 'connected'), () => 'failed');
+
+function select(sql, params) {
+    return new Promise((resolve, reject) => {
+        db.all(sql, params, logOutcome(resolve, reject));
+    });
+}
+
 export default class Select {
-    constructor() {
-        this.db = new sqlite3.Database(__dirname + '/nselxcin.db', logOutcome(() => 'connected'), () => 'failed');
-    }
-
-    select(sql, params) {
-        return new Promise((resolve, reject) => {
-            this.db.all(sql, params, logOutcome(resolve, reject));
-        });
-    }
-
-    allWorkbooks() {
+    static allWorkbooks() {
         const sql = `select * from Workbooks`;
-        return this.select(sql, []);
+        return select(sql, []);
     }
 
-    fromLessons(workbookId) {
+    static fromLessons(workbookId) {
         const sql = `
             select * from Lessons where Lessons.workbookId = ?
             order by Lessons.lessonNumber asc
         `;
         const params = [workbookId];
-        return this.select(sql, params);
+        return select(sql, params);
     }
 
-    fromLessonPhrases(lessonId) {
+    static fromLessonPhrases(lessonId) {
+        console.log('lessonId', lessonId);
         const sql = `
             select Phrases.salish, Phrases.english, Phrases.audioUrl, LessonPhrases.viewOrder from Phrases
             inner join LessonPhrases on Phrases.id = LessonPhrases.phraseId and LessonPhrases.lessonId = ?
             order by LessonPhrases.viewOrder, Phrases.english, Phrases.salish asc
         `;
-        return this.select(sql, [lessonId]);
+        return select(sql, [lessonId]);
     }
 }
