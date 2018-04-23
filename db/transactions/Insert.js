@@ -1,4 +1,4 @@
-import sqlite3 from 'sqlite3';
+import db from '../db';
 
 const logOutcome = function(resolve, reject) {
     // can't use fat-arrow, db.run will put successful
@@ -14,8 +14,6 @@ const logOutcome = function(resolve, reject) {
     };
 };
 
-const db = new sqlite3.Database(__dirname + '/nselxcin.db', logOutcome(() => 'connected'), () => 'failed');
-
 function insert(sql, params) {
     return new Promise((resolve, reject) => {
         db.run(sql, params, logOutcome(resolve, reject));
@@ -24,8 +22,6 @@ function insert(sql, params) {
 
 export default class Insert {
     static intoWorkbooks({ title = '', subtitle = '', authors = '', version = '', edition = '' }) {
-        console.log('title:', title);
-        console.log('subtitle:', subtitle);
         const sql = `insert into Workbooks(title, subtitle, authors, version, edition) values(?, ?, ?, ?, ?)`;
         const params = [title, subtitle, authors, version, edition];
         console.log(params);

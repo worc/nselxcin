@@ -1,4 +1,4 @@
-import sqlite3 from "sqlite3";
+import db from '../db';
 
 const logOutcome = function(resolve, reject) {
     // can't use fat-arrow, db.run will put successful
@@ -13,8 +13,6 @@ const logOutcome = function(resolve, reject) {
         }
     };
 };
-
-const db = new sqlite3.Database(__dirname + '/nselxcin.db', logOutcome(() => 'connected'), () => 'failed');
 
 function select(sql, params) {
     return new Promise((resolve, reject) => {
