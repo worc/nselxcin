@@ -3,11 +3,13 @@
 
 import express from 'express';
 import bodyParser from 'body-parser';
-import Insert from '../db/transactions/Insert';
-import Select from '../db/transactions/Select';
-import Delete from '../db/transactions/Delete';
-import Update from '../db/transactions/Update';
+import Insert from './transactions/Insert';
+import Select from './transactions/Select';
+import Delete from './transactions/Delete';
+import Update from './transactions/Update';
 
+const api = express()
+const PORT = process.env.PORT || 8080
 const router = express.Router();
 router.use(bodyParser.json({ type: 'application/json'}));
 
@@ -51,7 +53,12 @@ function PostComposer(task, taskName) {
     return function(req, res) {
         task(req.body).then((message) => {
             console.log(`${taskName}:`, message);
-            res.status(200).send();
+            const reqBody = req.body
+            const responseData = {
+                id: message.lastID,
+                ...reqBody
+            }
+            res.status(200).send(responseData);
         }).catch((error) => {
             console.error(`${taskName} error: ${error}`);
             res.status(500).send();
@@ -73,6 +80,8 @@ router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workb
 
 router.get('/lesson/:id/phrases', GetByIdComposer(Select.fromLessonPhrases, 'select phrases'));
 
+router.get('/workbook/:id', GetByIdComposer(Select.oneFromWorkbooks, 'select workbook'));
+
 router.get('/workbook/:id/lessons', GetByIdComposer(Select.fromLessons, 'select lessons'));
 
 router.get('/workbooks', GetByIdComposer(Select.allWorkbooks, 'select workbooks'));
@@ -86,4 +95,8 @@ router.post('/phrase', PostComposer(Insert.intoPhrases, 'insert phrase'));
 router.post('/lesson-phrase-order',
     PostComposer(Insert.intoLessonPhrases, 'insert lesson phrase order'));
 
-export default router;
+api.use('/api', router)
+
+api.listen(PORT, () => {
+    console.log('API server listening on', PORT)
+})
