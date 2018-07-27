@@ -49,6 +49,18 @@ function GetByIdComposer(task, taskName) {
     }
 }
 
+function GetAllComposer(task, taskName) {
+    return (req, res) => {
+        task().then((message) => {
+            console.log(`${taskName}:`, message);
+            res.status(200).send(message);
+        }).catch((error) => {
+            console.error(`${taskName} error: ${error}`);
+            res.status(500).send();
+        });
+    }
+}
+
 function PostComposer(task, taskName) {
     return function(req, res) {
         task(req.body).then((message) => {
@@ -77,6 +89,8 @@ router.delete('/phrase/:id', DeleteByIdComposer(Delete.phrase, 'delete phrase'))
 router.delete('/lesson/:id', DeleteByIdComposer(Delete.lesson, 'delete lesson'));
 
 router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workbook'));
+
+router.get('/phrases', GetAllComposer(Select.allPhrases, 'select all phrases'))
 
 router.get('/lesson/:id/phrases', GetByIdComposer(Select.fromLessonPhrases, 'select phrases'));
 

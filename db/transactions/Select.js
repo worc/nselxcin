@@ -14,6 +14,12 @@ const logOutcome = function(resolve, reject) {
     };
 };
 
+function selectOne(sql, params) {
+    return new Promise((resolve, reject) => {
+        db.get(sql, params, logOutcome(resolve, reject));
+    });
+}
+
 function select(sql, params) {
     return new Promise((resolve, reject) => {
         db.all(sql, params, logOutcome(resolve, reject));
@@ -24,6 +30,12 @@ export default class Select {
     static allWorkbooks() {
         const sql = `select * from Workbooks`;
         return select(sql, []);
+    }
+
+    static oneFromWorkbooks(workbookId) {
+        const sql = 'select * from Workbooks where Workbooks.id = ?';
+        const params = [workbookId];
+        return selectOne(sql, params);
     }
 
     static fromLessons(workbookId) {
@@ -42,5 +54,10 @@ export default class Select {
             order by LessonPhrases.viewOrder, Phrases.english, Phrases.salish asc
         `;
         return select(sql, [lessonId]);
+    }
+
+    static allPhrases() {
+        const sql = `select * from Phrases`
+        return select(sql)
     }
 }

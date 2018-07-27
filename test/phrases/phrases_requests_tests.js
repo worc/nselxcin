@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 
-import { addPhrase } from '../../src/features/phrases/phrases_requests'
+import { addPhrase, getPhrases } from '../../src/features/phrases/phrases_requests'
 
 global.API_ENDPOINT = 'http://localhost:8080'
 
@@ -24,5 +24,11 @@ describe('phrases integration tests', () => {
         })
     })
 
-    // describe('')
+    describe('getPhrases', () => {
+        it('returns all phrases in the database as an array', () => {
+            return getPhrases().then(response => {
+                assert.isTrue(Array.isArray(response.data))
+            })
+        })
+    })
 })
