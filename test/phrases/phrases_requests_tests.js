@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 
-import {addPhrase, getPhrase, getPhrases } from '../../src/features/phrases/phrases_requests'
+import {addPhrase, getPhrase, getPhrases, removePhrase} from '../../src/features/phrases/phrases_requests'
 
 global.API_ENDPOINT = 'http://localhost:8080'
 
@@ -47,6 +47,25 @@ describe('phrases integration tests', () => {
                     assert.isTrue(response.english === english)
                     assert.isTrue(response.salish === salish)
                     assert.isTrue(response.audioUrl === url)
+                })
+            })
+        })
+    })
+
+    describe('removePhrase', () => {
+        it('removes a phrase by id', () => {
+            const nonce = new Date().getTime()
+            const english = `english-${ nonce }`
+            const salish = `salish-${ nonce }`
+            const url = `url-${ nonce }`
+
+            return addPhrase(english, salish, url).then(response => {
+                const id = response.id
+
+                return removePhrase(id).then(() => {
+                    return getPhrases().then(response => {
+                        assert.isTrue(response.filter(phrase => phrase.id === id).length === 0)
+                    })
                 })
             })
         })

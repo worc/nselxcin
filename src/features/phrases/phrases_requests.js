@@ -18,7 +18,7 @@ export function getPhrase(id) {
 }
 
 export function removePhrase(id) {
-    return axios.delete(`${ API_ENDPOINT }/api/phrases/${ id }`).then(response => response.data)
+    return axios.delete(`${ API_ENDPOINT }/api/phrase/${ id }`).then(response => response.data)
 }
 
 export function changePhrase(id, english, salish, audioUrl) {
