@@ -8,12 +8,14 @@ import Select from './transactions/Select';
 import Delete from './transactions/Delete';
 import Update from './transactions/Update';
 
+import PhraseRoutes from './api_routes/phrase_routes'
+
 const api = express()
 const PORT = process.env.PORT || 8080
 const router = express.Router();
 router.use(bodyParser.json({ type: 'application/json'}));
 
-function UpdateByIdComposer(task,taskName) {
+export function UpdateByIdComposer(task,taskName) {
     return (req, res) => {
         task(req.params.id, req.body).then((message) => {
             console.log(`${taskName}:`, message);
@@ -25,7 +27,7 @@ function UpdateByIdComposer(task,taskName) {
     }
 }
 
-function DeleteByIdComposer(task, taskName) {
+export function DeleteByIdComposer(task, taskName) {
     return (req, res) => {
         task(req.params.id).then((message) => {
             console.log(`${taskName}:`, message);
@@ -37,7 +39,7 @@ function DeleteByIdComposer(task, taskName) {
     }
 }
 
-function GetByIdComposer(task, taskName) {
+export function GetByIdComposer(task, taskName) {
     return (req, res) => {
         task(req.params.id).then((message) => {
             console.log(`${taskName}:`, message);
@@ -49,7 +51,7 @@ function GetByIdComposer(task, taskName) {
     }
 }
 
-function GetAllComposer(task, taskName) {
+export function GetAllComposer(task, taskName) {
     return (req, res) => {
         task().then((message) => {
             console.log(`${taskName}:`, message);
@@ -61,7 +63,7 @@ function GetAllComposer(task, taskName) {
     }
 }
 
-function PostComposer(task, taskName) {
+export function PostComposer(task, taskName) {
     return function(req, res) {
         task(req.body).then((message) => {
             console.log(`${taskName}:`, message);
@@ -78,19 +80,19 @@ function PostComposer(task, taskName) {
     }
 }
 
-router.put('/phrase/:id', UpdateByIdComposer(Update.phrase, 'update phrase'));
+
 
 router.put('/lesson/:id', UpdateByIdComposer(Update.lesson, 'update lesson'));
 
 router.put('/workbook/:id', UpdateByIdComposer(Update.workbook, 'update workbook'));
 
-router.delete('/phrase/:id', DeleteByIdComposer(Delete.phrase, 'delete phrase'));
+
 
 router.delete('/lesson/:id', DeleteByIdComposer(Delete.lesson, 'delete lesson'));
 
 router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workbook'));
 
-router.get('/phrases', GetAllComposer(Select.allPhrases, 'select all phrases'))
+
 
 router.get('/lesson/:id/phrases', GetByIdComposer(Select.fromLessonPhrases, 'select phrases'));
 
@@ -104,12 +106,13 @@ router.post('/workbook', PostComposer(Insert.intoWorkbooks, 'insert workbook'));
 
 router.post('/lesson', PostComposer(Insert.intoLessons, 'insert lesson'));
 
-router.post('/phrase', PostComposer(Insert.intoPhrases, 'insert phrase'));
+
 
 router.post('/lesson-phrase-order',
     PostComposer(Insert.intoLessonPhrases, 'insert lesson phrase order'));
 
 api.use('/api', router)
+api.use('/api', PhraseRoutes)
 
 api.listen(PORT, () => {
     console.log('API server listening on', PORT)
