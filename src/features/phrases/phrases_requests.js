@@ -6,19 +6,19 @@ export function addPhrase(english, salish, audioUrl) {
         salish,
         audioUrl
     }
-    return axios.post(`${ API_ENDPOINT }/api/phrase`, body)
+    return axios.post(`${ API_ENDPOINT }/api/phrase`, body).then(response => response.data)
 }
 
 export function getPhrases() {
-    return axios.get(`${ API_ENDPOINT }/api/phrases`)
+    return axios.get(`${ API_ENDPOINT }/api/phrases`).then(response => response.data)
 }
 
 export function getPhrase(id) {
-    return axios.get(`${ API_ENDPOINT }/api/phrases/${ id }`)
+    return axios.get(`${ API_ENDPOINT }/api/phrases/${ id }`).then(response => response.data)
 }
 
 export function removePhrase(id) {
-    return axios.delete(`${ API_ENDPOINT }/api/phrases/${ id }`)
+    return axios.delete(`${ API_ENDPOINT }/api/phrases/${ id }`).then(response => response.data)
 }
 
 export function changePhrase(id, english, salish, audioUrl) {
@@ -27,5 +27,5 @@ export function changePhrase(id, english, salish, audioUrl) {
         salish,
         audioUrl
     }
-    return axios.put(`${ API_ENDPOINT }/api/phrases/${ id }`, body)
+    return axios.put(`${ API_ENDPOINT }/api/phrases/${ id }`, body).then(response => response.data)
 }

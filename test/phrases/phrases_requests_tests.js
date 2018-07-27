@@ -16,10 +16,10 @@ describe('phrases integration tests', () => {
 
         it('adding a phrase returns the phrase object with id', () => {
             return addPhrase('english', 'salish', 'url').then(response => {
-                assert.isTrue(response.data.id !== undefined)
-                assert.isTrue(response.data.english === 'english')
-                assert.isTrue(response.data.salish === 'salish')
-                assert.isTrue(response.data.audioUrl === 'url')
+                assert.isTrue(response.id !== undefined)
+                assert.isTrue(response.english === 'english')
+                assert.isTrue(response.salish === 'salish')
+                assert.isTrue(response.audioUrl === 'url')
             })
         })
     })
@@ -27,7 +27,7 @@ describe('phrases integration tests', () => {
     describe('getPhrases', () => {
         it('returns all phrases in the database as an array', () => {
             return getPhrases().then(response => {
-                assert.isTrue(Array.isArray(response.data))
+                assert.isTrue(Array.isArray(response))
             })
         })
     })
