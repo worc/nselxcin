@@ -60,4 +60,10 @@ export default class Select {
         const sql = `select * from Phrases`
         return select(sql)
     }
+
+    static oneFromPhrases(phraseId) {
+        const sql = `select * from Phrases where Phrases.id = ?`
+        const params = [ phraseId ]
+        return selectOne(sql, params)
+    }
 }

@@ -14,7 +14,7 @@ export function getPhrases() {
 }
 
 export function getPhrase(id) {
-    return axios.get(`${ API_ENDPOINT }/api/phrases/${ id }`).then(response => response.data)
+    return axios.get(`${ API_ENDPOINT }/api/phrase/${ id }`).then(response => response.data)
 }
 
 export function removePhrase(id) {
