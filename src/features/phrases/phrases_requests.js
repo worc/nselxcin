@@ -27,5 +27,5 @@ export function changePhrase(id, english, salish, audioUrl) {
         salish,
         audioUrl
     }
-    return axios.put(`${ API_ENDPOINT }/api/phrases/${ id }`, body).then(response => response.data)
+    return axios.put(`${ API_ENDPOINT }/api/phrase/${ id }`, body).then(response => response.data)
 }

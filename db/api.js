@@ -19,7 +19,12 @@ export function UpdateByIdComposer(task,taskName) {
     return (req, res) => {
         task(req.params.id, req.body).then((message) => {
             console.log(`${taskName}:`, message);
-            res.status(200).send();
+            const reqBody = req.body
+            const responseData = {
+                id: message.lastID,
+                ...reqBody
+            }
+            res.status(200).send(responseData);
         }).catch((error) => {
             console.error(`${taskName} error: ${error}`);
             res.status(500).send();
