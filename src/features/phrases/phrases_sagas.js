@@ -47,7 +47,8 @@ export function* removePhrase(message) {
 export function* changePhrase(message) {
     try {
         // todo check message for valid params
-        yield call(api.changePhrase, ...message)
+        const response  = yield call(api.changePhrase, ...message)
+        yield put({ type: action.PHRASE_CHANGED, sparsePhrase: response.data })
     } catch(e) {
         // todo create error handler feature (reducer, component, saga, etc)
         console.error(e)
@@ -59,4 +60,5 @@ export default function* () {
     yield takeLatest(action.GET_PHRASES, getPhrases)
     yield takeEvery(action.GET_PHRASE, getPhrase)
     yield throttle(1000, action.REMOVE_PHRASE, removePhrase)
+    yield takeEvery(action.CHANGE_PHRASE, changePhrase)
 }

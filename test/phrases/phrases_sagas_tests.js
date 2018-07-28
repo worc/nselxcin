@@ -168,4 +168,40 @@ describe('phrases sagas', () => {
             )
         })
     })
+
+    describe('changePhrase', () => {
+        const mockChangePhraseResponse = {
+            data: {
+                id: 0,
+                english: 'changedEnglish',
+            }
+        }
+
+        before(() => {
+            sinon.stub(api, 'changePhrase').callsFake(() => mockChangePhraseResponse)
+        })
+
+        after(() => {
+            api.changePhrase.reset()
+        })
+
+        it('changes a phrase, then dispatches the updated phrase', () => {
+            const mockMessage = {
+                id: 0,
+                english: 'changedEnglish',
+            }
+
+            const gen = sagas.changePhrase(mockMessage)
+
+            assert.deepEqual(
+                gen.next().value,
+                call(api.changePhrase, ...mockMessage)
+            )
+
+            assert.deepEqual(
+                gen.next(mockChangePhraseResponse).value,
+                put({ type: action.PHRASE_CHANGED, sparsePhrase: mockMessage })
+            )
+        })
+    })
 })
