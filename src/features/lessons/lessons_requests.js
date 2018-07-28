@@ -37,7 +37,7 @@ export function editLesson({ id, lessonName }) {
     return axios.put(`${ API_ENDPOINT }/api/lesson/${ id }`, body)
 }
 
-export function editLessonPhraseViewOrder({ lessonId, phraseId, viewOrder }) {
+export function editLessonPhraseViewOrder(lessonId, phraseId, viewOrder) {
     const body = {
         viewOrder: viewOrder
     }

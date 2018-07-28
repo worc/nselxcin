@@ -157,7 +157,7 @@ describe('lesson requests', () => {
                     return addPhraseToLesson(phraseId, lessonId, 0).then(response => {
                         assert.isTrue(response.data.viewOrder === 0)
 
-                        return editLessonPhraseViewOrder({ lessonId, phraseId, viewOrder: 5 }).then(response => {
+                        return editLessonPhraseViewOrder(lessonId, phraseId, 5).then(response => {
                             assert.isTrue(response.data.viewOrder === 5)
                         })
                     })
