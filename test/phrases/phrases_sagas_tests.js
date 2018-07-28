@@ -7,35 +7,64 @@ import * as sagas from '../../src/features/phrases/phrases_sagas'
 import * as api from '../../src/features/phrases/phrases_requests'
 import * as action from '../../src/features/phrases/phrases_actions'
 
-describe('phrases sagas', () => {
-    describe('addPhrase saga', () => {
-        const mockResponse = {
-            status: 200,
-            statusText: 'OK',
-            headers: {
-                Accept: 'application/json, text/plain, */*',
-                'Content-Type': 'application/json;charset=utf-8',
-                'User-Agent': 'axios/0.18.0',
-                'Content-Length': 56
-            },
-            method: 'post',
-            url: 'http://localhost:8080/api/phrase',
-            data: {
-                id: 231,
-                english: 'english',
-                salish: 'salish',
-                audioUrl: 'url'
-            }
+const mockAddPhraseResponse = {
+    status: 200,
+    statusText: 'OK',
+    headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json;charset=utf-8',
+        'User-Agent': 'axios/0.18.0',
+        'Content-Length': 56
+    },
+    method: 'post',
+    url: 'http://localhost:8080/api/phrase',
+    data: {
+        id: 231,
+        english: 'english',
+        salish: 'salish',
+        audioUrl: 'url'
+    }
+}
+
+const mockGetPhrasesResponse = {
+    status: 200,
+    statusText: 'OK',
+    headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json;charset=utf-8',
+        'User-Agent': 'axios/0.18.0',
+        'Content-Length': 56
+    },
+    method: 'get',
+    url: 'http://localhost:8080/api/phrases',
+    data: [
+        {
+            id: 231,
+            english: 'english',
+            salish: 'salish',
+            audioUrl: 'url'
+        },
+        {
+            id: 232,
+            english: 'ingles',
+            salish: 'salis',
+            audioUrl: 'audioUrl'
         }
+    ]
+}
 
-        before(() => {
-            sinon.stub(api, 'addPhrase').callsFake(() => mockResponse)
-        })
+describe('phrases sagas', () => {
+    before(() => {
+        sinon.stub(api, 'addPhrase').callsFake(() => mockAddPhraseResponse)
+        sinon.stub(api, 'getPhrases').callsFake(() => mockGetPhrasesResponse)
+    })
 
-        after(() => {
-            api.addPhrase.reset()
-        })
+    after(() => {
+        api.addPhrase.reset()
+        api.getPhrases.reset()
+    })
 
+    describe('addPhrase saga', () => {
         it('it calls the addPhrase endpoint first', () => {
             const mockMessage = {
                 english: 'english',
@@ -63,48 +92,13 @@ describe('phrases sagas', () => {
             gen.next()
 
             assert.deepEqual(
-                gen.next(mockResponse).value,
-                put({ type: action.RECEIVE_PHRASE, phrase: mockResponse.data })
+                gen.next(mockAddPhraseResponse).value,
+                put({ type: action.RECEIVE_PHRASE, phrase: mockAddPhraseResponse.data })
             )
         })
     })
 
     describe('getPhrases', () => {
-        const mockResponse = {
-            status: 200,
-            statusText: 'OK',
-            headers: {
-                Accept: 'application/json, text/plain, */*',
-                'Content-Type': 'application/json;charset=utf-8',
-                'User-Agent': 'axios/0.18.0',
-                'Content-Length': 56
-            },
-            method: 'post',
-            url: 'http://localhost:8080/api/phrase',
-            data: [
-                {
-                    id: 231,
-                    english: 'english',
-                    salish: 'salish',
-                    audioUrl: 'url'
-                },
-                {
-                    id: 232,
-                    english: 'ingles',
-                    salish: 'salis',
-                    audioUrl: 'audioUrl'
-                }
-            ]
-        }
-
-        before(() => {
-            sinon.stub(api, 'getPhrases').callsFake(() => mockResponse)
-        })
-
-        after(() => {
-            api.getPhrases.reset()
-        })
-
         it('gets an array of phrases and dispatches them', () => {
             const gen = sagas.getPhrases()
 
@@ -114,8 +108,8 @@ describe('phrases sagas', () => {
             )
 
             assert.deepEqual(
-                gen.next(mockResponse).value,
-                put({ type: action.RECEIVE_PHRASES, phraseList: mockResponse.data })
+                gen.next(mockGetPhrasesResponse).value,
+                put({ type: action.RECEIVE_PHRASES, phraseList: mockGetPhrasesResponse.data })
             )
         })
     })
