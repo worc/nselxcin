@@ -18,7 +18,7 @@ const router = express.Router()
 
 router.get('/lessons', GetAllComposer(Select.allLessons, 'select all lessons'))
 router.get('/lesson/:id', GetByIdComposer(Select.oneLesson, 'select lesson'))
-router.get('/lesson/:id/phrases', GetAllComposer(Select.fromLessonPhrases, 'select all lesson phrases'))
+router.get('/lesson/:id/phrases', GetByIdComposer(Select.fromLessonPhrases, 'select all lesson phrases'))
 
 router.post('/lesson', PostComposer(Insert.intoLessons, 'insert lesson'))
 router.post('/lesson/:lessonId/phrase', PostByParamsComposer(Insert.intoLessonPhrases, 'insert into lesson phrases'))
