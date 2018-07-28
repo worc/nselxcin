@@ -31,7 +31,7 @@ db.serialize(() => {
     db.run('drop table if exists Lessons');
     db.run(`create table Lessons(
         id integer primary key autoincrement,
-        workbookId integer not null,
+        workbookId integer,
         lessonNumber integer,
         lessonName text,
         foreign key(workbookId) references Workbooks(id)
