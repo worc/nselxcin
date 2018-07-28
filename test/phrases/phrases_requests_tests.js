@@ -1,6 +1,12 @@
 import { assert } from 'chai'
 
-import {addPhrase, changePhrase, getPhrase, getPhrases, removePhrase} from '../../src/features/phrases/phrases_requests'
+import {
+    addPhrase,
+    changePhrase,
+    getPhrase,
+    getPhrases,
+    removePhrase
+} from '../../src/features/phrases/phrases_requests'
 
 global.API_ENDPOINT = 'http://localhost:8080'
 
@@ -85,8 +91,6 @@ describe('phrases integration tests', () => {
                 const testUrl = 'testUrl'
 
                 return changePhrase(id, testEnglish, testSalish, testUrl).then(response => {
-                    console.log('changePhrase response', response)
-
                     assert.isTrue(response.id === id)
                     assert.isTrue(response.english === testEnglish)
                     assert.isTrue(response.salish === testSalish)
