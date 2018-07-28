@@ -21,7 +21,7 @@ export function removePhrase(id) {
     return axios.delete(`${ API_ENDPOINT }/api/phrase/${ id }`)
 }
 
-export function changePhrase(id, english, salish, audioUrl) {
+export function changePhrase({ id, english, salish, audioUrl }) {
     const body = {
         english,
         salish,

@@ -85,16 +85,18 @@ describe('phrases integration tests', () => {
             const url = `url-${ nonce }`
 
             return addPhrase(english, salish, url).then(response => {
-                const id = response.data.id
-                const testEnglish = 'testEnglish'
-                const testSalish = 'testSalish'
-                const testUrl = 'testUrl'
+                const testRequestBody = {
+                    id: response.data.id,
+                    english: 'testEnglish',
+                    salish: 'testSalish',
+                    audioUrl: 'testUrl'
+                }
 
-                return changePhrase(id, testEnglish, testSalish, testUrl).then(response => {
-                    assert.isTrue(response.data.id === id)
-                    assert.isTrue(response.data.english === testEnglish)
-                    assert.isTrue(response.data.salish === testSalish)
-                    assert.isTrue(response.data.audioUrl === testUrl)
+                return changePhrase(testRequestBody).then(response => {
+                    assert.deepEqual(
+                        response.data,
+                        testRequestBody
+                    )
                 })
             })
         })
@@ -106,17 +108,19 @@ describe('phrases integration tests', () => {
             const url = `url-${ nonce }`
 
             return addPhrase(english, salish, url).then(response => {
-                const id = response.data.id
-                const testEnglish = 'testEnglish'
+                const testRequestBody = {
+                    id: response.data.id,
+                    salish: 'testSalish'
+                }
 
-                return changePhrase(id, testEnglish).then(() => {
-                    return getPhrase(id).then(response => {
+                return changePhrase(testRequestBody).then(() => {
+                    return getPhrase(testRequestBody.id).then(response => {
                         assert.deepEqual(
                             response.data,
                             {
-                                id: id,
-                                english: testEnglish,
-                                salish: salish,
+                                id: testRequestBody.id,
+                                english: english,
+                                salish: testRequestBody.salish,
                                 audioUrl: url
                             }
                         )
