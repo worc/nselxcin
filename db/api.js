@@ -59,6 +59,20 @@ export function DeleteByIdComposer(task, taskName) {
     }
 }
 
+export function DeleteByParamsComposer(task, taskName) {
+    return (req, res) => {
+        task(req.params, req.body).then(message => {
+            console.log(`${ taskName }:`, message)
+            const reqBody = req.body
+            const responseData = {
+                id: message.lastID,
+                ...reqBody
+            }
+            res.status(200).send(responseData);
+        })
+    }
+}
+
 export function GetByIdComposer(task, taskName) {
     return (req, res) => {
         task(req.params.id).then((message) => {
