@@ -34,9 +34,9 @@ export default class Insert {
         return insert(sql, params);
     }
 
-    static intoLessons({ workbookId, lessonNumber = 0, lessonName = '' }) {
-        const sql = `insert into Lessons(workbookId, lessonNumber, lessonName) values(?, ?, ?)`;
-        const params = [ workbookId, lessonNumber, lessonName ];
+    static intoLessons({ lessonName = '' }) {
+        const sql = `insert into Lessons(lessonName) values(?)`;
+        const params = [ lessonName ];
         return insert(sql, params);
     }
 
