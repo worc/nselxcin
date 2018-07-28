@@ -62,17 +62,28 @@ const mockGetPhraseResponse = {
     }
 }
 
+const mockRemovePhraseResponse = {
+    data: {
+        id: 231,
+        english: 'english',
+        salish: 'salish',
+        audioUrl: 'url'
+    }
+}
+
 describe('phrases sagas', () => {
     before(() => {
         sinon.stub(api, 'addPhrase').callsFake(() => mockAddPhraseResponse)
         sinon.stub(api, 'getPhrases').callsFake(() => mockGetPhrasesResponse)
         sinon.stub(api, 'getPhrase').callsFake(() => mockGetPhraseResponse)
+        sinon.stub(api, 'removePhrase').callsFake(() => mockRemovePhraseResponse)
     })
 
     after(() => {
         api.addPhrase.reset()
         api.getPhrases.reset()
         api.getPhrase.reset()
+        api.removePhrase.reset()
     })
 
     describe('addPhrase saga', () => {
@@ -137,6 +148,23 @@ describe('phrases sagas', () => {
             assert.deepEqual(
                 gen.next(mockGetPhraseResponse).value,
                 put({ type: action.RECEIVE_PHRASE, phrase: mockGetPhraseResponse.data })
+            )
+        })
+    })
+
+    describe('removePhrase', () => {
+        it('removes a single phrase by id', () => {
+            const mockMessage = { id: mockRemovePhraseResponse.id }
+            const gen = sagas.removePhrase(mockMessage)
+
+            assert.deepEqual(
+                gen.next().value,
+                call(api.removePhrase, mockMessage.id)
+            )
+
+            assert.deepEqual(
+                gen.next(mockRemovePhraseResponse).value,
+                put({ type: action.PHRASE_REMOVED, id: mockMessage.id })
             )
         })
     })
