@@ -68,4 +68,55 @@ describe('phrases sagas', () => {
             )
         })
     })
+
+    describe('getPhrases', () => {
+        const mockResponse = {
+            status: 200,
+            statusText: 'OK',
+            headers: {
+                Accept: 'application/json, text/plain, */*',
+                'Content-Type': 'application/json;charset=utf-8',
+                'User-Agent': 'axios/0.18.0',
+                'Content-Length': 56
+            },
+            method: 'post',
+            url: 'http://localhost:8080/api/phrase',
+            data: [
+                {
+                    id: 231,
+                    english: 'english',
+                    salish: 'salish',
+                    audioUrl: 'url'
+                },
+                {
+                    id: 232,
+                    english: 'ingles',
+                    salish: 'salis',
+                    audioUrl: 'audioUrl'
+                }
+            ]
+        }
+
+        before(() => {
+            sinon.stub(api, 'getPhrases').callsFake(() => mockResponse)
+        })
+
+        after(() => {
+            api.getPhrases.reset()
+        })
+
+        it('gets an array of phrases and dispatches them', () => {
+            const gen = sagas.getPhrases()
+
+            assert.deepEqual(
+                gen.next().value,
+                call(api.getPhrases)
+            )
+
+            assert.deepEqual(
+                gen.next(mockResponse).value,
+                put({ type: action.RECEIVE_PHRASES, phraseList: mockResponse.data })
+            )
+        })
+    })
 })

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as API from './phrases_requests'
 import * as Action from './phrases_actions'
 
@@ -12,6 +12,17 @@ export function* addPhrase(message) {
     }
 }
 
+export function* getPhrases() {
+    try {
+        const response = yield call(API.getPhrases)
+        yield put({ type: Action.RECEIVE_PHRASES, phraseList: response.data })
+    } catch(e) {
+        // todo create error handler feature (reducer, component, saga, etc)
+        console.error(e)
+    }
+}
+
 export default function* () {
     yield takeEvery(Action.ADD_PHRASE, addPhrase)
+    yield takeLatest(Action.GET_PHRASES, getPhrases)
 }
