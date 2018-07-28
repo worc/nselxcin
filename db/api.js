@@ -86,6 +86,20 @@ export function PostComposer(task, taskName) {
     }
 }
 
+export function PostByParamsComposer(task, taskName) {
+    return function(req, res) {
+        task(req.params, req.body).then(message => {
+            console.log(`${ taskName }:`, message)
+            const reqBody = req.body
+            const responseData = {
+                id: message.lastID,
+                ...reqBody
+            }
+            res.status(200).send(responseData)
+        })
+    }
+}
+
 router.put('/workbook/:id', UpdateByIdComposer(Update.workbook, 'update workbook'));
 
 router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workbook'));

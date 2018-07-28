@@ -40,9 +40,9 @@ export default class Insert {
         return insert(sql, params);
     }
 
-    static intoLessonPhrases({ lessonId, phraseId, viewOrder }) {
+    static intoLessonPhrases(params, body) {
         const sql = `insert into LessonPhrases(lessonId, phraseId, viewOrder) values(?, ?, ?)`;
-        const params = [lessonId, phraseId, viewOrder];
+        const params = [params.lessonId, body.phraseId, body.viewOrder];
         return insert(sql, params);
     }
 }
