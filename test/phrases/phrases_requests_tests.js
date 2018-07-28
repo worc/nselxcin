@@ -22,10 +22,10 @@ describe('phrases integration tests', () => {
 
         it('adding a phrase returns the phrase object with id', () => {
             return addPhrase('english', 'salish', 'url').then(response => {
-                assert.isTrue(response.id !== undefined)
-                assert.isTrue(response.english === 'english')
-                assert.isTrue(response.salish === 'salish')
-                assert.isTrue(response.audioUrl === 'url')
+                assert.isTrue(response.data.id !== undefined)
+                assert.isTrue(response.data.english === 'english')
+                assert.isTrue(response.data.salish === 'salish')
+                assert.isTrue(response.data.audioUrl === 'url')
             })
         })
     })
@@ -33,7 +33,7 @@ describe('phrases integration tests', () => {
     describe('getPhrases', () => {
         it('returns all phrases in the database as an array', () => {
             return getPhrases().then(response => {
-                assert.isTrue(Array.isArray(response))
+                assert.isTrue(Array.isArray(response.data))
             })
         })
     })
@@ -46,13 +46,13 @@ describe('phrases integration tests', () => {
             const url = `url-${ nonce }`
 
             return addPhrase(english, salish, url).then(response => {
-                const id = response.id
+                const id = response.data.id
 
                 return getPhrase(id).then(response => {
-                    assert.isTrue(response.id === id)
-                    assert.isTrue(response.english === english)
-                    assert.isTrue(response.salish === salish)
-                    assert.isTrue(response.audioUrl === url)
+                    assert.isTrue(response.data.id === id)
+                    assert.isTrue(response.data.english === english)
+                    assert.isTrue(response.data.salish === salish)
+                    assert.isTrue(response.data.audioUrl === url)
                 })
             })
         })
@@ -66,11 +66,11 @@ describe('phrases integration tests', () => {
             const url = `url-${ nonce }`
 
             return addPhrase(english, salish, url).then(response => {
-                const id = response.id
+                const id = response.data.id
 
                 return removePhrase(id).then(() => {
                     return getPhrases().then(response => {
-                        assert.isTrue(response.filter(phrase => phrase.id === id).length === 0)
+                        assert.isTrue(response.data.filter(phrase => phrase.id === id).length === 0)
                     })
                 })
             })
@@ -85,16 +85,16 @@ describe('phrases integration tests', () => {
             const url = `url-${ nonce }`
 
             return addPhrase(english, salish, url).then(response => {
-                const id = response.id
+                const id = response.data.id
                 const testEnglish = 'testEnglish'
                 const testSalish = 'testSalish'
                 const testUrl = 'testUrl'
 
                 return changePhrase(id, testEnglish, testSalish, testUrl).then(response => {
-                    assert.isTrue(response.id === id)
-                    assert.isTrue(response.english === testEnglish)
-                    assert.isTrue(response.salish === testSalish)
-                    assert.isTrue(response.audioUrl === testUrl)
+                    assert.isTrue(response.data.id === id)
+                    assert.isTrue(response.data.english === testEnglish)
+                    assert.isTrue(response.data.salish === testSalish)
+                    assert.isTrue(response.data.audioUrl === testUrl)
                 })
             })
         })
