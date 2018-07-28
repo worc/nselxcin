@@ -78,7 +78,7 @@ describe('phrases integration tests', () => {
     })
 
     describe('changePhrase', () => {
-        it('changes any part of the phrase except the id', () => {
+        it('changes all parts of the phrase except the id', () => {
             const nonce = new Date().getTime()
             const english = `english-${ nonce }`
             const salish = `salish-${ nonce }`
@@ -95,6 +95,32 @@ describe('phrases integration tests', () => {
                     assert.isTrue(response.data.english === testEnglish)
                     assert.isTrue(response.data.salish === testSalish)
                     assert.isTrue(response.data.audioUrl === testUrl)
+                })
+            })
+        })
+
+        it('changes only the parts of the phrase that are given', () => {
+            const nonce = new Date().getTime()
+            const english = `english-${ nonce }`
+            const salish = `salish-${ nonce }`
+            const url = `url-${ nonce }`
+
+            return addPhrase(english, salish, url).then(response => {
+                const id = response.data.id
+                const testEnglish = 'testEnglish'
+
+                return changePhrase(id, testEnglish).then(() => {
+                    return getPhrase(id).then(response => {
+                        assert.deepEqual(
+                            response.data,
+                            {
+                                id: id,
+                                english: testEnglish,
+                                salish: salish,
+                                audioUrl: url
+                            }
+                        )
+                    })
                 })
             })
         })
