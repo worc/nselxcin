@@ -33,6 +33,20 @@ export function UpdateByIdComposer(task,taskName) {
     }
 }
 
+export function UpdateByParamsComposer(task, taskName) {
+    return (req, res) => {
+        task(req.params, req.body).then(message => {
+            console.log(`${ taskName }:`, message)
+            const reqBody = req.body
+            const responseData = {
+                id: message.lastID,
+                ...reqBody
+            }
+            res.status(200).send(responseData);
+        })
+    }
+}
+
 export function DeleteByIdComposer(task, taskName) {
     return (req, res) => {
         task(req.params.id).then((message) => {

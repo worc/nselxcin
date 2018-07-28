@@ -6,7 +6,8 @@ import {
     GetByIdComposer,
     PostByParamsComposer,
     PostComposer,
-    UpdateByIdComposer
+    UpdateByIdComposer,
+    UpdateByParamsComposer
 } from '../api'
 
 import Select from '../transactions/Select'
@@ -24,7 +25,7 @@ router.post('/lesson', PostComposer(Insert.intoLessons, 'insert lesson'))
 router.post('/lesson/:lessonId/phrase', PostByParamsComposer(Insert.intoLessonPhrases, 'insert into lesson phrases'))
 
 router.put('/lesson/:id', UpdateByIdComposer(Update.lesson, 'update lesson'))
-router.put('/lesson/:lessonId/phrase/:phraseId/:viewOrder', UpdateByIdComposer(Update.lessonPhraseViewOrder, 'update lesson phrase view order'))
+router.put('/lesson/:lessonId/phrase/:phraseId', UpdateByParamsComposer(Update.lessonPhraseViewOrder, 'update lesson phrase view order'))
 
 router.delete('/lesson/:id', DeleteByIdComposer(Delete.lesson, 'delete lesson'))
 router.delete('/lesson/:lessonId/phrase/:phraseId', DeleteByIdComposer(Delete.fromLessonPhrases, 'delete phrase from lesson phrases'))
