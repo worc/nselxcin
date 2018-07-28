@@ -10,10 +10,22 @@ import * as action from '../../src/features/phrases/phrases_actions'
 describe('phrases sagas', () => {
     describe('addPhrase saga', () => {
         const mockResponse = {
-            id: 0,
-            english: 'english',
-            salish: 'salish',
-            audioUrl: 'url'
+            status: 200,
+            statusText: 'OK',
+            headers: {
+                Accept: 'application/json, text/plain, */*',
+                'Content-Type': 'application/json;charset=utf-8',
+                'User-Agent': 'axios/0.18.0',
+                'Content-Length': 56
+            },
+            method: 'post',
+            url: 'http://localhost:8080/api/phrase',
+            data: {
+                id: 231,
+                english: 'english',
+                salish: 'salish',
+                audioUrl: 'url'
+            }
         }
 
         before(() => {
@@ -52,7 +64,7 @@ describe('phrases sagas', () => {
 
             assert.deepEqual(
                 gen.next(mockResponse).value,
-                put({ type: action.RECEIVE_PHRASE, phrase: mockResponse })
+                put({ type: action.RECEIVE_PHRASE, phrase: mockResponse.data })
             )
         })
     })
