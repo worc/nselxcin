@@ -44,6 +44,16 @@ export function* removePhrase(message) {
     }
 }
 
+export function* changePhrase(message) {
+    try {
+        // todo check message for valid params
+        yield call(api.changePhrase, ...message)
+    } catch(e) {
+        // todo create error handler feature (reducer, component, saga, etc)
+        console.error(e)
+    }
+}
+
 export default function* () {
     yield takeEvery(action.ADD_PHRASE, addPhrase)
     yield takeLatest(action.GET_PHRASES, getPhrases)

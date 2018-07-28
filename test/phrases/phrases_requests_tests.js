@@ -101,6 +101,27 @@ describe('phrases integration tests', () => {
             })
         })
 
+        it('returns the phrase id, and only the fields that were changed', () => {
+            const nonce = new Date().getTime()
+            const english = `english-${ nonce }`
+            const salish = `salish-${ nonce }`
+            const url = `url-${ nonce }`
+
+            return addPhrase(english, salish, url).then(response => {
+                const testRequestBody = {
+                    id: response.data.id,
+                    english: 'testEnglish'
+                }
+
+                return changePhrase(testRequestBody).then(response => {
+                    assert.deepEqual(
+                        response.data,
+                        testRequestBody
+                    )
+                })
+            })
+        })
+
         it('changes only the parts of the phrase that are given', () => {
             const nonce = new Date().getTime()
             const english = `english-${ nonce }`
