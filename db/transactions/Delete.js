@@ -33,6 +33,12 @@ export default class Delete {
         return deleteRow(sql, params);
     }
 
+    static fromLessonPhrases({ lessonId, phraseId }) {
+        const sql = `delete from LessonPhrases where LessonPhrases.lessonId = ? and LessonPhrases.phraseId = ?`
+        const params = [ lessonId, phraseId ]
+        return deleteRow(sql, params)
+    }
+
     static phrase(id) {
         const sql = `delete from Phrases where Phrases.id = ?`;
         const params = [id];
