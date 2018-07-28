@@ -71,7 +71,7 @@ const mockRemovePhraseResponse = {
     }
 }
 
-describe('phrases sagas', () => {
+describe('phrase sagas', () => {
     before(() => {
         sinon.stub(api, 'addPhrase').callsFake(() => mockAddPhraseResponse)
         sinon.stub(api, 'getPhrases').callsFake(() => mockGetPhrasesResponse)

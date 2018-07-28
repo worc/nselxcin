@@ -10,7 +10,7 @@ import {
 
 global.API_ENDPOINT = 'http://localhost:8080'
 
-describe('phrases integration tests', () => {
+describe('phrase requests', () => {
     describe('addPhrase', () => {
         it('adds english, salish, and audioURL phrase block', () => {
             return addPhrase('english', 'salish', 'url').then(response => {
