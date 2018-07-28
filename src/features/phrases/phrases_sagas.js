@@ -22,7 +22,18 @@ export function* getPhrases() {
     }
 }
 
+export function* getPhrase(message) {
+    try {
+        const response = yield call(API.getPhrase, message.id)
+        yield put({ type: Action.RECEIVE_PHRASE, phrase: response.data })
+    } catch(e) {
+        // todo create error handler feature (reducer, component, saga, etc)
+        console.error(e)
+    }
+}
+
 export default function* () {
     yield takeEvery(Action.ADD_PHRASE, addPhrase)
     yield takeLatest(Action.GET_PHRASES, getPhrases)
+    yield takeLatest(Action.GET_PHRASE, getPhrase)
 }

@@ -53,15 +53,26 @@ const mockGetPhrasesResponse = {
     ]
 }
 
+const mockGetPhraseResponse = {
+    data: {
+        id: 231,
+        english: 'english',
+        salish: 'salish',
+        audioUrl: 'url'
+    }
+}
+
 describe('phrases sagas', () => {
     before(() => {
         sinon.stub(api, 'addPhrase').callsFake(() => mockAddPhraseResponse)
         sinon.stub(api, 'getPhrases').callsFake(() => mockGetPhrasesResponse)
+        sinon.stub(api, 'getPhrase').callsFake(() => mockGetPhraseResponse)
     })
 
     after(() => {
         api.addPhrase.reset()
         api.getPhrases.reset()
+        api.getPhrase.reset()
     })
 
     describe('addPhrase saga', () => {
@@ -110,6 +121,22 @@ describe('phrases sagas', () => {
             assert.deepEqual(
                 gen.next(mockGetPhrasesResponse).value,
                 put({ type: action.RECEIVE_PHRASES, phraseList: mockGetPhrasesResponse.data })
+            )
+        })
+    })
+
+    describe('getPhrase', () => {
+        it('gets a single phrase by id', () => {
+            const gen = sagas.getPhrase({ id: mockGetPhraseResponse.data.id })
+
+            assert.deepEqual(
+                gen.next().value,
+                call(api.getPhrase, mockGetPhraseResponse.data.id)
+            )
+
+            assert.deepEqual(
+                gen.next(mockGetPhraseResponse).value,
+                put({ type: action.RECEIVE_PHRASE, phrase: mockGetPhraseResponse.data })
             )
         })
     })
