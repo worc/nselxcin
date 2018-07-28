@@ -9,6 +9,7 @@ import Delete from './transactions/Delete';
 import Update from './transactions/Update';
 
 import PhraseRoutes from './api_routes/phrase_routes'
+import LessonRoutes from './api_routes/lesson_routes'
 
 const api = express()
 const PORT = process.env.PORT || 8080
@@ -85,21 +86,9 @@ export function PostComposer(task, taskName) {
     }
 }
 
-
-
-router.put('/lesson/:id', UpdateByIdComposer(Update.lesson, 'update lesson'));
-
 router.put('/workbook/:id', UpdateByIdComposer(Update.workbook, 'update workbook'));
 
-
-
-router.delete('/lesson/:id', DeleteByIdComposer(Delete.lesson, 'delete lesson'));
-
 router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workbook'));
-
-
-
-router.get('/lesson/:id/phrases', GetByIdComposer(Select.fromLessonPhrases, 'select phrases'));
 
 router.get('/workbook/:id', GetByIdComposer(Select.oneFromWorkbooks, 'select workbook'));
 
@@ -109,15 +98,12 @@ router.get('/workbooks', GetByIdComposer(Select.allWorkbooks, 'select workbooks'
 
 router.post('/workbook', PostComposer(Insert.intoWorkbooks, 'insert workbook'));
 
-router.post('/lesson', PostComposer(Insert.intoLessons, 'insert lesson'));
-
-
-
 router.post('/lesson-phrase-order',
     PostComposer(Insert.intoLessonPhrases, 'insert lesson phrase order'));
 
 api.use('/api', router)
 api.use('/api', PhraseRoutes)
+api.use('/api', LessonRoutes)
 
 api.listen(PORT, () => {
     console.log('API server listening on', PORT)
