@@ -1,6 +1,6 @@
 import db from '../db';
 
-const logOutcome = function(resolve, reject, params) {
+const logOutcome = function(resolve, reject) {
     // can't use fat-arrow, db.run will put successful
     // data and message on the function context--"this"
     return function(error) {
