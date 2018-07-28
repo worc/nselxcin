@@ -38,6 +38,17 @@ export default class Select {
         return selectOne(sql, params);
     }
 
+    static allLessons() {
+        const sql = `select * from Lessons`
+        return select(sql, [])
+    }
+
+    static oneLesson(lessonId) {
+        const sql = `select * from Lessons where Lessons.id = ?`
+        const params = [ lessonId ]
+        return selectOne(sql, params)
+    }
+
     static fromLessons(workbookId) {
         const sql = `
             select * from Lessons where Lessons.workbookId = ?
