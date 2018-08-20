@@ -6,7 +6,7 @@ import {
     GetByIdComposer,
     PostComposer,
     UpdateByIdComposer
-} from '../api'
+} from '../transactions/_transaction_composers'
 
 import Select from '../transactions/Select'
 import Insert from '../transactions/Insert'
