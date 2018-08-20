@@ -5,11 +5,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import Insert from './transactions/Insert';
 import Select from './transactions/Select';
-import Delete from './transactions/Delete';
-import Update from './transactions/Update';
 
 import PhraseRoutes from './api_routes/phrase_routes'
 import LessonRoutes from './api_routes/lesson_routes'
+import WorkbookRoutes from './api_routes/workbook_routes'
 
 const api = express()
 const PORT = process.env.PORT || 8080
@@ -128,17 +127,9 @@ export function PostByParamsComposer(task, taskName) {
     }
 }
 
-router.put('/workbook/:id', UpdateByIdComposer(Update.workbook, 'update workbook'));
 
-router.delete('/workbook/:id', DeleteByIdComposer(Delete.workbook, 'delete workbook'));
-
-router.get('/workbook/:id', GetByIdComposer(Select.oneFromWorkbooks, 'select workbook'));
 
 router.get('/workbook/:id/lessons', GetByIdComposer(Select.fromLessons, 'select lessons'));
-
-router.get('/workbooks', GetByIdComposer(Select.allWorkbooks, 'select workbooks'));
-
-router.post('/workbook', PostComposer(Insert.intoWorkbooks, 'insert workbook'));
 
 router.post('/lesson-phrase-order',
     PostComposer(Insert.intoLessonPhrases, 'insert lesson phrase order'));
@@ -146,6 +137,7 @@ router.post('/lesson-phrase-order',
 api.use('/api', router)
 api.use('/api', PhraseRoutes)
 api.use('/api', LessonRoutes)
+api.use('/api', WorkbookRoutes)
 
 api.listen(PORT, () => {
     console.log('API server listening on', PORT)
