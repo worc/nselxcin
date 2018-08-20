@@ -1,4 +1,6 @@
 import sinon from 'sinon'
+import { assert } from 'chai'
+import { call, put } from 'redux-saga/effects'
 
 import * as sagas from '../../src/features/lessons/lessons_sagas'
 import * as api from '../../src/features/lessons/lessons_requests'
@@ -352,7 +354,7 @@ const mockRemovePhraseFromLessonResponse = {
 
 describe('lessons sagas', () => {
     before(() => {
-        sinon.stub(api, 'addLesson').callsFake(() => mockAddLessonResponse)
+        sinon.stub(api, 'addLesson').callsFake(lessonName => ({ ...mockAddLessonResponse, data: { lessonName: lessonName } }) )
         sinon.stub(api, 'addPhraseToLesson').callsFake(() => mockAddPhraseToLessonResponse)
         sinon.stub(api, 'getLesson').callsFake(() => mockGetLessonResponse)
         sinon.stub(api, 'getLessons').callsFake(() => mockGetLessonsResponse)
@@ -373,5 +375,33 @@ describe('lessons sagas', () => {
         api.editLessonPhraseViewOrder.reset()
         api.deleteLesson.reset()
         api.removePhraseFromLesson.reset()
+    })
+
+    describe('addLesson saga', () => {
+        it('calls the addLesson endpoint first', () => {
+            const mockMessage = {
+                lessonName: 'testLessonName'
+            }
+
+            const gen = sagas.addLesson(mockMessage)
+
+            assert.deepEqual(
+                gen.next().value,
+                call(api.addLesson, mockMessage.lessonName)
+            )
+        })
+
+        it('dispatches the new lesson with its name and assigned id', () => {
+            const mockMessage = {
+                lessonName: 'testLessonName'
+            }
+
+            const gen = sagas.addLesson(mockMessage)
+            gen.next()
+            assert.deepEqual(
+                gen.next(mockAddLessonResponse).value,
+                put({ type: action.RECEIVE_LESSON, lesson: mockAddLessonResponse.data })
+            )
+        })
     })
 })
