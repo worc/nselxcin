@@ -12,6 +12,7 @@
     "start:api": "nodemon db/api.js --exec babel-node",
     "build": "NODE_ENV=production webpack -p --config webpack.config.js",
     "parcel": "parcel server.js",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "mocha --require babel-core/register --recursive test",
     "watch": "webpack --config webpack.config.js --watch"
   },
@@ -31,6 +32,7 @@
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
+    "@storybook/react": "^4.0.2",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-styled-components": "^1.5.1",
