@@ -38,6 +38,16 @@ export default class Select {
         return selectOne(sql, params);
     }
 
+    static allLessonsPhrasesFromWorkbook(workbookId) {
+        const sql = `
+            select *
+            from Phrases
+            inner join Lessons on Phrases.lessonId = Lessons.id and Lessons.workbookId = ?
+        `
+        const params = [ workbookId ]
+        return select(sql, params)
+    }
+
     static allLessons() {
         const sql = `select * from Lessons`
         return select(sql, [])

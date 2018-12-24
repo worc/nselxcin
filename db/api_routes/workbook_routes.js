@@ -16,6 +16,7 @@ import Update from '../transactions/Update'
 const router = express.Router()
 
 router.get('/workbook/:id', GetByIdComposer(Select.oneFromWorkbooks, 'select workbook'))
+router.get('/workbook/:id/deep', GetByIdComposer(Select.allLessonsPhrasesFromWorkbook, 'select all from workbook'))
 router.get('/workbooks', GetAllComposer(Select.allWorkbooks, 'select workbooks'))
 
 router.post('/workbook', PostComposer(Insert.intoWorkbooks, 'insert workbook'))

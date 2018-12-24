@@ -24,7 +24,7 @@ export default class Insert {
     static intoWorkbooks({ title = '', subtitle = '', authors = '', version = '', edition = '' }) {
         const sql = `insert into Workbooks(title, subtitle, authors, version, edition) values(?, ?, ?, ?, ?)`;
         const params = [title, subtitle, authors, version, edition];
-        console.log('insert intoWorkbooks params', params);
+        console.log('insert into Workbooks params', params);
         return insert(sql, params);
     }
 
