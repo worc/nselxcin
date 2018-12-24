@@ -6,10 +6,8 @@ import bodyParser from 'body-parser';
 
 import {
     GetByIdComposer,
-    PostComposer
 } from './transactions/_transaction_composers'
 
-import Insert from './transactions/Insert';
 import Select from './transactions/Select';
 
 import PhraseRoutes from './api_routes/phrase_routes'
@@ -22,9 +20,6 @@ const router = express.Router();
 router.use(bodyParser.json({ type: 'application/json'}));
 
 router.get('/workbook/:id/lessons', GetByIdComposer(Select.fromLessons, 'select lessons'));
-
-router.post('/lesson-phrase-order',
-    PostComposer(Insert.intoLessonPhrases, 'insert lesson phrase order'));
 
 api.use('/api', router)
 api.use('/api', PhraseRoutes)

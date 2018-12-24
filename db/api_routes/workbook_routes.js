@@ -2,13 +2,10 @@ import express from 'express'
 
 import {
     DeleteByIdComposer,
-    DeleteByParamsComposer,
     GetAllComposer,
     GetByIdComposer,
-    PostByParamsComposer,
     PostComposer,
     UpdateByIdComposer,
-    UpdateByParamsComposer
 } from '../transactions/_transaction_composers'
 
 import Select from '../transactions/Select'

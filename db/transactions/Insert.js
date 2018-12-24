@@ -28,21 +28,15 @@ export default class Insert {
         return insert(sql, params);
     }
 
-    static intoPhrases({ salish = '', english = '', audioUrl = '' }) {
-        const sql = `insert into Phrases(salish, english, audioUrl) values(?, ?, ?)`;
-        const params = [salish, english, audioUrl];
+    static intoPhrases({ salish = '', english = '', audioUrl = '', viewOrder = 0, lessonId ='' }) {
+        const sql = `insert into Phrases(salish, english, audioUrl, viewOrder, lessonId) values(?, ?, ?, ?, ?)`;
+        const params = [salish, english, audioUrl, viewOrder, lessonId];
         return insert(sql, params);
     }
 
-    static intoLessons({ lessonName = '' }) {
-        const sql = `insert into Lessons(lessonName) values(?)`;
-        const params = [ lessonName ];
-        return insert(sql, params);
-    }
-
-    static intoLessonPhrases(reqParams, body) {
-        const sql = `insert into LessonPhrases(lessonId, phraseId, viewOrder) values(?, ?, ?)`;
-        const params = [reqParams.lessonId, body.phraseId, body.viewOrder];
+    static intoLessons({ lessonName = '', lessonNumber = 0, workbookId = '' }) {
+        const sql = `insert into Lessons(lessonName, lessonNumber, workbookId) values(?, ?, ?)`;
+        const params = [ lessonName, lessonNumber, workbookId ];
         return insert(sql, params);
     }
 }

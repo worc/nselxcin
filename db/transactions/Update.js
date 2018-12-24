@@ -39,12 +39,6 @@ export default class Update {
         return updateRow(sql, params);
     }
 
-    static lessonPhraseViewOrder(lessonId, phraseId, viewOrder) {
-        const sql = `update LessonPhrases ${ setStatementBuilder({ viewOrder })} where LessonPhrases.lessonId = ? and LessonPhrases.phraseId = ?`
-        const params = [ lessonId, phraseId ]
-        return updateRow(sql, params)
-    }
-
     static phrase(id, attributes) {
         const sql = ` update Phrases ${setStatementBuilder(attributes)} where Phrases.id = ?`;
         const params = Object.values(attributes).concat(id);

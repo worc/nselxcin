@@ -58,15 +58,6 @@ export default class Select {
         return select(sql, params);
     }
 
-    static fromLessonPhrases(lessonId) {
-        const sql = `
-            select Phrases.salish, Phrases.english, Phrases.audioUrl, LessonPhrases.viewOrder from Phrases
-            inner join LessonPhrases on Phrases.id = LessonPhrases.phraseId and LessonPhrases.lessonId = ?
-            order by LessonPhrases.viewOrder, Phrases.english, Phrases.salish asc
-        `;
-        return select(sql, [lessonId]);
-    }
-
     static allPhrases() {
         const sql = `select * from Phrases`
         return select(sql)

@@ -32,6 +32,9 @@ db.serialize(() => {
     db.run(`create table Lessons(
         id integer primary key autoincrement,
         lessonName text
+        lessonNumber integer default 0,
+        workbookId integer,
+        foreign key(workbookId) references Workbooks(id)
     )`);
 
     db.run('drop table if exists Phrases');
@@ -39,24 +42,9 @@ db.serialize(() => {
         id integer primary key autoincrement,
         salish text,
         english text,
-        audioUrl text
-    )`);
-
-    db.run('drop table if exists LessonPhrases');
-    db.run(`create table LessonPhrases(
-        lessonId integer not null,
-        phraseId integer not null,
+        audioUrl text,
+        lessonId integer,
         viewOrder integer default 0,
-        foreign key(lessonId) references Lessons(id),
-        foreign key(phraseId) references Phrases(id)
-    )`);
-
-    db.run('drop table if exists WorkbookLessons');
-    db.run(`create table WorkbookLessons(
-        workbookId integer not null,
-        lessonId integer not null,
-        viewOrder integer default 0,
-        foreign key(workbookId) references Workbooks(id),
         foreign key(lessonId) references Lessons(id)
     )`);
 });
