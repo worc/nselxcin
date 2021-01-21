@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function testPost() {
-  console.log('posting... hopefully...')
-  axios.post('/api/workbook', {
+  return axios.post('/api/workbook', {
     title: 'title',
     subtitle: 'subtitle',
     authors: 'just a plain string',
@@ -13,11 +12,11 @@ function testPost() {
 }
 
 function testDelete(workbook_id) {
-  console.log('deleting...')
-  axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
+  return axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
 }
 
 export default function () {
+  const [lastUpdate, setLastUpdate] = useState(new Date())
   const [workbooks, setWorkbooks] = useState([])
 
   useEffect(() => {
@@ -25,12 +24,16 @@ export default function () {
       console.log(response)
       setWorkbooks(response.data)
     })
-  }, [])
+  }, [lastUpdate])
+
+  function request(promise) {
+    promise().then(setLastUpdate(new Date()))
+  }
 
   return (
     <div>
       <h1>hello world</h1>
-      <div style={{border: '1px solid #ace'}} onClick={testPost}>test post request</div>
+      <div style={{border: '1px solid #ace'}} onClick={() => request(testPost)}>test post request</div>
       <div>
         { workbooks.map(workbook => (
           <li key={workbook.workbook_id}>
@@ -39,7 +42,7 @@ export default function () {
             <div>{ workbook.authors }</div>
             <div>{ workbook.edition }</div>
             <div>{ workbook.version }</div>
-            <div style={{ border: '2px solid red'}} onClick={() => testDelete(workbook.workbook_id)}>DELETE</div>
+            <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
           </li>
         ))}
       </div>
