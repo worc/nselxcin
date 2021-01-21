@@ -46,6 +46,10 @@ app.get(['/app', '/app/*'], (req, res) => {
     )));
 });
 
+app.get('*', (req, res) => {
+    res.status(404).send('404, not found')
+})
+
 app.listen(PORT, () => {
     console.log("Server listening on", PORT);
 });
