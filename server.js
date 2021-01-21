@@ -32,7 +32,11 @@ app.use("/static/client.js", express.static(path.join(process.cwd(), "dist/clien
 app.use("/static/client.min.js", express.static(path.join(process.cwd(), "dist/client.min.js")));
 app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.css')));
 
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
+    res.redirect('/app')
+})
+
+app.get(['/app', '/app/*'], (req, res) => {
     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
 
     res.status(200).send(renderPage(pageTitle, (
