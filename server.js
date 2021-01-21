@@ -5,7 +5,8 @@ import { StaticRouter } from 'react-router-dom';
 import path from 'path';
 
 import App from './src/App';
-import Api from './routes/Api';
+import Admin from './admin/index.js'
+import Api from './api/index.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,6 +49,10 @@ app.get(['/app', '/app/*'], (req, res) => {
         </StaticRouter>
     )));
 });
+
+app.use('/admin', Admin)
+
+app.use('/api', Api)
 
 app.get('*', (req, res) => {
     res.status(404).send('404, not found')
