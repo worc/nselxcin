@@ -13,27 +13,28 @@ const pool = new Pool({
 const router = express.Router()
 const jsonParser = bodyParser.json()
 
-async function getAllWorkbooks() {
-  let workbooks
+async function query(text, values = []) {
+  let result
+  const client = await pool.connect()
 
   try {
-    const client = await pool.connect()
-
-    workbooks = await client.query(`SELECT * FROM workbooks`)
-
+    result = await client.query(text, values)
+  } catch (e) {
+    console.error(e)
+  } finally {
     client.release()
-
-  } catch (error) {
-    console.error(error)
   }
 
-  return workbooks.rows
+  return result
+}
+
+async function getAllWorkbooks() {
+  const result = await query(`SELECT * FROM workbooks`)
+  return result.rows
 }
 
 async function insertWorkbook(params) {
-  let response
-
-  const query = `INSERT INTO workbooks(
+  const text = `INSERT INTO workbooks(
     title,
     subtitle,
     authors,
@@ -49,37 +50,14 @@ async function insertWorkbook(params) {
     params.version,
   ]
 
-  console.log({ values })
-
-  try {
-    const client = await pool.connect()
-
-    response = await client.query(query, values)
-
-    client.release()
-
-  } catch (error) {
-    console.error(error)
-  }
-
-  return response
+  return await query(text, values)
 }
 
 async function deleteWorkbook(workbook_id) {
-  let response
-
-  const query = `DELETE FROM workbooks WHERE workbook_id=$1`
+  const text = `DELETE FROM workbooks WHERE workbook_id=$1`
   const values = [workbook_id]
 
-  try {
-    const client = await pool.connect()
-    client.query(query, values)
-    client.release()
-  } catch (e) {
-    console.error(e)
-  }
-
-  return response
+  return await query(text, values)
 }
 
 router.get('/', (req, res) => {
@@ -88,7 +66,6 @@ router.get('/', (req, res) => {
 
 router.get('/workbooks', async (req, res) => {
   const workbooks = await getAllWorkbooks()
-  console.log({ workbooks })
   res.send(workbooks)
 })
 
