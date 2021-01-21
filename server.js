@@ -35,7 +35,11 @@ app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.cs
 
 app.use('/api', Api);
 
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
+    res.redirect('/app')
+})
+
+app.get(['/app', '/app/*'], (req, res) => {
     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
 
     res.status(200).send(renderPage(pageTitle, (
