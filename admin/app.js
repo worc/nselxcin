@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { createGlobalStyle } from 'styled-components'
 
 function testPost() {
   return axios.post('/api/workbook', {
@@ -14,6 +15,12 @@ function testPost() {
 function testDelete(workbook_id) {
   return axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
 }
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+`
 
 export default function () {
   const [lastUpdate, setLastUpdate] = useState(new Date())
@@ -32,6 +39,7 @@ export default function () {
 
   return (
     <div>
+      <GlobalStyle/>
       <h1>hello world</h1>
       <div style={{border: '1px solid #ace'}} onClick={() => request(testPost)}>test post request</div>
       <div>
