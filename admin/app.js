@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { createGlobalStyle } from 'styled-components'
+import Input from '../components/input.js'
 
 function testPost() {
   return axios.post('/api/workbook', {
@@ -53,6 +54,18 @@ export default function () {
             <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
           </li>
         ))}
+      </div>
+      <div>
+        <h2>test inputs</h2>
+        <form id='new-workbook'>
+          <Input
+            id='title'
+            required={ true }
+            label='Workbook Title'
+            type='Text'
+            placeholder='Nselxcin 1'
+          />
+        </form>
       </div>
     </div>
   )
