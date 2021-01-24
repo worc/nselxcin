@@ -1,4 +1,4 @@
-# postgres
+# postgres installation
 
 Installed through chocolatey in an elevated PowerShell. It wasn't obvious at first, but the postgres service is automatically started after install, but also crashes silently on a failed login. The postgres service controller to restart is different on Windows as well:
 
@@ -36,3 +36,14 @@ The `pg-native` also complains if you're missing the right version of VisualStud
 
 > `npm config set msbuild_path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"`
 > `npm config set msvs_version 2019`
+
+# database management
+
+On Windows you'll want to update `pgpass.conf` with the test user and password so that dumps and restores don't get hung up on a password prompt. The directory and file may have to be created manually:
+
+> `%APPDATA%\postgresql\pgpass.conf`
+
+The single line for password management is pretty simple:
+
+> `hostname:port:database:username:password`
+> `localhost:5432:nselxcin-test:nselxcin:salish`
