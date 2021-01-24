@@ -22,3 +22,17 @@ I also added a test user specifically for this database, from within an admin `p
 
 > `create user nselxcin with password 'salish';`
 > `alter database "nselxcin-test" owner to nselxcin;`
+
+The node-postgres library also seems to require `pg-native` installed as well? It doesn't seem to get resolved automatically (`pg-native` in return needs Python installed):
+
+> `npm install --save pg-native`
+
+And in Windows 10's infinite wisdom, there are multiple, dangling, stub installations of "Python" lurking around because of the Windows App store. It may be required to switch off the app aliases and reconfigure npm to use the correct, current version of python on the machine:
+
+> `npm config get python`
+> `npm config set python py` (for whatever reason `py` is what Windows has aliased to my local python 3.9 installation)
+
+The `pg-native` also complains if you're missing the right version of VisualStudio (for fuck's sake). On node 14 it looks like at least Visual Studio 2015 is needed. Installing Visual Studio 2019 and the "desktop C++ workload" module (6.66 frickin gigs) unblocked one error. But npm also needs to be configured to correctly use the Visual Studio 2019 build path and have the Visual Studio version set correctly (see https://github.com/nodejs/node-gyp/issues/1753 for more of the history):
+
+> `npm config set msbuild_path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"`
+> `npm config set msvs_version 2019`
