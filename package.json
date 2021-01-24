@@ -17,6 +17,7 @@
     "cross-env": "^7.0.3",
     "express": "^4.16.3",
     "pg": "^8.5.1",
+    "pg-native": "^3.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^5.0.7",
