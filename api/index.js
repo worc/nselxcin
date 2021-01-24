@@ -33,6 +33,14 @@ async function getAllWorkbooks() {
   return result.rows
 }
 
+async function getWorkbook(id) {
+  const text = `SELECT * FROM workbooks where workbook_id=$1`
+  const values = [id]
+  const result = await query(text, values)
+
+  return result.rows[0]
+}
+
 async function insertWorkbook(params) {
   const text = `INSERT INTO workbooks(
     title,
@@ -67,6 +75,11 @@ router.get('/', (req, res) => {
 router.get('/workbooks', async (req, res) => {
   const workbooks = await getAllWorkbooks()
   res.send(workbooks)
+})
+
+router.get('/workbook/:id', async (req, res) => {
+  const workbook = await getWorkbook(req.params.id)
+  res.send(workbook)
 })
 
 router.post('/workbook', jsonParser, async (req, res) => {
