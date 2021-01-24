@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { createGlobalStyle } from 'styled-components'
+import { Link, Switch, Route } from 'react-router-dom'
 import WorkbookForm from './workbook_form.js'
+import Workbook from './workbook.js'
 
 function testDelete(workbook_id) {
   return axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
@@ -32,23 +34,27 @@ export default function () {
     <div>
       <GlobalStyle/>
 
-      <div>
-        <h2>test inputs</h2>
-        <WorkbookForm onUpdate={() => setLastUpdate(new Date())}/>
-      </div>
-
-      <div>
-        { workbooks.map(workbook => (
-          <li key={workbook.workbook_id}>
-            <div>{ workbook.title }</div>
-            <div>{ workbook.subtitle }</div>
-            <div>{ workbook.authors }</div>
-            <div>{ workbook.edition }</div>
-            <div>{ workbook.version }</div>
-            <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
-          </li>
-        ))}
-      </div>
+      <Switch>
+        <Route exact path='/admin' render={() => (
+          <div>
+            <WorkbookForm onUpdate={() => setLastUpdate(new Date())}/>
+            <h3>workbooksssss</h3>
+            <div>
+          { workbooks.map(workbook => (
+            <li id={`workbook_id_${workbook.workbook_id}`} key={workbook.workbook_id}>
+              <div><Link to={`/admin/workbook/${workbook.workbook_id}`}>{ workbook.title }</Link></div>
+              <div>{ workbook.subtitle }</div>
+              <div>{ workbook.authors }</div>
+              <div>{ workbook.edition }</div>
+              <div>{ workbook.version }</div>
+              <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
+            </li>
+            ))}
+            </div>
+          </div>
+        )}/>
+        <Route path='/admin/workbook/:id' component={Workbook}/>
+      </Switch>
     </div>
   )
 }

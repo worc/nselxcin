@@ -25,7 +25,7 @@ const renderPage = (title, app) => `
   </html>
 `;
 
-router.get('/', (req, res) => {
+router.get('/*', (req, res) => {
   res.status(200).send(renderPage('Admin', (
     <StaticRouter context={{}}>
       <App/>
