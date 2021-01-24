@@ -27,4 +27,4 @@ async function setup ({ log }) {
   client.end()
 }
 
-setup({ log: true }).then(() => console.log('database set up'))
+setup({ log: true }).then(() => console.log('set workbooks.workbook_id as primary key'))
