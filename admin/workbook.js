@@ -19,6 +19,7 @@ export default function ({ match }) {
       <div>by { workbook.authors }</div>
       <div>{ workbook.edition } Edition</div>
       <div>Version { workbook.version }</div>
+      <hr/>
     </div>
   )
 }
