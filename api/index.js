@@ -2,6 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 
+import PhraseRoutes from './phrases.js'
+
 const pool = new Pool({
   database: 'nselxcin-test',
   host: 'localhost',
@@ -92,5 +94,7 @@ router.delete('/workbook/:workbook_id', async (req, res) => {
   const result = await deleteWorkbook(req.params.workbook_id)
   res.send(result)
 })
+
+router.use(PhraseRoutes)
 
 export default router
