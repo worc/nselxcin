@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { createGlobalStyle } from 'styled-components'
 import { Link, Switch, Route } from 'react-router-dom'
+import Phrases from './phrases.js'
 import WorkbookForm from './workbook_form.js'
 import Workbook from './workbook.js'
 
@@ -54,6 +55,7 @@ export default function () {
           </div>
         )}/>
         <Route path='/admin/workbook/:id' component={Workbook}/>
+        <Route path='/admin/phrases' component={Phrases}/>
       </Switch>
     </div>
   )
