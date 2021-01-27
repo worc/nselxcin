@@ -7,6 +7,7 @@
   "author": "curtis mcallister",
   "license": "MIT",
   "scripts": {
+    "db:dump": "pg_dump -U nselxcin -d nselxcin-test -h localhost -p 5432 --format plain --file postgres/dump.sql",
     "start": "nodemon server.js --exec babel-node",
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch"
