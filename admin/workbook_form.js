@@ -25,35 +25,35 @@ export default function ({ onUpdate }) {
         id='title'
         required={ true }
         label='Title'
-        type='Text'
+        type='text'
         placeholder='Nselxcin 1'
       />
       <Input
         id='subtitle'
         required={ true }
         label='Subtitle'
-        type='Text'
+        type='text'
         placeholder='A Beginning Course in Colville-Okanagan Salish'
       />
       <Input
         id='authors'
         required={ true }
         label='Authors'
-        type='Text'
+        type='text'
         placeholder='Sarah Peterson, LaRae Wiley, Christopher Parkin'
       />
       <Input
         id='edition'
         required={ true }
         label='Edition'
-        type='Text'
+        type='text'
         placeholder='3rd'
       />
       <Input
         id='version'
         required={ true }
         label='Version'
-        type='Text'
+        type='text'
         placeholder='3'
       />
       <button>submit</button>
