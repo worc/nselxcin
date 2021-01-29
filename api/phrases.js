@@ -2,29 +2,37 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import query from './_query.js'
 
+// orphaned audio select:
+// SELECT audio_id FROM audio WHERE NOT EXISTS (SELECT FROM phrases WHERE phrases.audio_id = audio.audio_id);
+
 async function getAllPhrases() {
   const result = await query(`SELECT phrases.phrase_id, salish, english, octet_length(file) AS size, filename FROM phrases JOIN audio ON phrases.audio_id = audio.audio_id`)
   return result.rows
 }
 
-async function insertPhrase(salish, english, salish_audio) {
+async function insertPhrase(salish, english) {
   const text = `INSERT INTO phrases(
     salish,
-    english,
-    salish_audio
-  ) VALUES($1, $2, $3) RETURNING phrase_id`
+    english
+  ) VALUES($1, $2) RETURNING phrase_id`
 
-  const values = [ salish, english, salish_audio ]
+  const values = [ salish, english ]
   const result = await query(text, values)
   const phrase_id = result.rows[0].phrase_id
   console.log(phrase_id)
   return phrase_id
 }
 
-async function addSalishAudioToPhrase(id, audio) {
-  const text = `UPDATE phrases SET salish_audio = $2 WHERE phrase_id = $1`
-  const values = [id, audio]
-  const result = await query(text, values)
+async function addSalishAudioToPhrase(phrase_id, audio, filename, content_type) {
+  const audioText = `INSERT INTO audio(file, filename, content_type) VALUES($1, $2, $3) RETURNING audio_id`
+  const audioValues = [audio, filename, content_type]
+  const audioResult = await query(audioText, audioValues)
+  const audioId = audioResult.rows[0].audio_id
+
+  const phrasesText = `UPDATE phrases SET audio_id = $2 WHERE phrase_id = $1`
+  const phrasesValues = [phrase_id, audioId]
+  const result = await query(phrasesText, phrasesValues)
+
   return result.rows
 }
 
