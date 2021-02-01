@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg'
 
+import AudioRoutes from './audio.js'
 import PhraseRoutes from './phrases.js'
 
 const pool = new Pool({
@@ -95,6 +96,7 @@ router.delete('/workbook/:workbook_id', async (req, res) => {
   res.send(result)
 })
 
+router.use(AudioRoutes)
 router.use(PhraseRoutes)
 
 export default router
