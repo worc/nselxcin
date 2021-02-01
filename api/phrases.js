@@ -2,9 +2,6 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import query from './_query.js'
 
-// orphaned audio select:
-// SELECT audio_id FROM audio WHERE NOT EXISTS (SELECT FROM phrases WHERE phrases.audio_id = audio.audio_id);
-
 async function getAllPhrases() {
   const result = await query(`SELECT phrases.phrase_id, salish, english, octet_length(file) AS size, filename FROM phrases JOIN audio ON phrases.audio_id = audio.audio_id`)
   return result.rows
