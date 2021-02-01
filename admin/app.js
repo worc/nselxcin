@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { createGlobalStyle } from 'styled-components'
 import { Link, Switch, Route } from 'react-router-dom'
+
 import Phrases from './phrases.js'
 import WorkbookForm from './workbook_form.js'
 import Workbook from './workbook.js'
+import BulkUpload from './bulk_upload.js'
+import Orphans from './orphans.js'
 
 function testDelete(workbook_id) {
   return axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
@@ -55,7 +58,9 @@ export default function () {
           </div>
         )}/>
         <Route path='/admin/workbook/:id' component={Workbook}/>
-        <Route path='/admin/phrases' component={Phrases}/>
+        <Route exact path='/admin/phrases' component={Phrases}/>
+        <Route path='/admin/phrases/bulk' component={BulkUpload}/>
+        <Route path='/admin/audio/orphans' component={ Orphans } />
       </Switch>
     </div>
   )
