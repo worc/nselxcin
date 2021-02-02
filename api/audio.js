@@ -57,4 +57,12 @@ router.route('/audio/:id')
     res.send('ok')
   })
 
+router.route('/audio/:id/metadata')
+  .get(async (req, res) => {
+    const text = 'SELECT octet_length(file) AS size, filename, content_type FROM audio WHERE audio_id = $1'
+    const values = [req.params.id]
+    const result = await query(text, values)
+    res.send(result.rows[0])
+  })
+
 export default router
