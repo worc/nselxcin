@@ -7,8 +7,10 @@ import WorkbookRoutes from './workbooks.js'
 
 const router = express.Router()
 const jsonParser = bodyParser.json()
+const mpegParser = bodyParser.raw({ type: 'audio/mpeg', limit: '100MB' })
 
 router.use(jsonParser)
+router.use(mpegParser)
 
 router.get('/', (req, res) => {
   res.send('api root')
