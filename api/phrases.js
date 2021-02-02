@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import query from './_query.js'
 
 async function getAllPhrases() {
@@ -34,10 +33,6 @@ async function addSalishAudioToPhrase(phrase_id, audio, filename, content_type) 
 }
 
 const router = express.Router()
-const jsonParser = bodyParser.json()
-const mpegParser = bodyParser.raw({ type: 'audio/mpeg', limit: '100MB' })
-
-router.use(jsonParser)
 
 router.route('/phrase/:id')
   .get(async (req, res) => {
@@ -61,7 +56,6 @@ router.route('/phrase/:id')
   })
 
 router.route('/phrase/:id/audio')
-  .all(mpegParser)
   .get(async (req, res) => {
     const text = `SELECT file, octet_length(file) AS size, filename FROM audio JOIN phrases ON phrases.audio_id = audio.audio_id WHERE phrases.phrase_id = $1`
     const values = [ req.params.id ]
