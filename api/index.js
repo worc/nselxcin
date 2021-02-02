@@ -1,102 +1,25 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { Pool } from 'pg'
 
 import AudioRoutes from './audio.js'
 import PhraseRoutes from './phrases.js'
-
-const pool = new Pool({
-  database: 'nselxcin-test',
-  host: 'localhost',
-  password: 'salish',
-  port: 5432,
-  user: 'nselxcin',
-})
+import WorkbookRoutes from './workbooks.js'
 
 const router = express.Router()
 const jsonParser = bodyParser.json()
 
-async function query(text, values = []) {
-  let result
-  const client = await pool.connect()
-
-  try {
-    result = await client.query(text, values)
-  } catch (e) {
-    console.error(e)
-  } finally {
-    client.release()
-  }
-
-  return result
-}
-
-async function getAllWorkbooks() {
-  const result = await query(`SELECT * FROM workbooks`)
-  return result.rows
-}
-
-async function getWorkbook(id) {
-  const text = `SELECT * FROM workbooks where workbook_id=$1`
-  const values = [id]
-  const result = await query(text, values)
-
-  return result.rows[0]
-}
-
-async function insertWorkbook(params) {
-  const text = `INSERT INTO workbooks(
-    title,
-    subtitle,
-    authors,
-    edition,
-    version
-  ) VALUES($1, $2, $3, $4, $5) RETURNING *`
-
-  const values = [
-    params.title,
-    params.subtitle,
-    params.authors,
-    params.edition,
-    params.version,
-  ]
-
-  return await query(text, values)
-}
-
-async function deleteWorkbook(workbook_id) {
-  const text = `DELETE FROM workbooks WHERE workbook_id=$1`
-  const values = [workbook_id]
-
-  return await query(text, values)
-}
+router.use(jsonParser)
 
 router.get('/', (req, res) => {
   res.send('api root')
 })
 
-router.get('/workbooks', async (req, res) => {
-  const workbooks = await getAllWorkbooks()
-  res.send(workbooks)
-})
-
-router.get('/workbook/:id', async (req, res) => {
-  const workbook = await getWorkbook(req.params.id)
-  res.send(workbook)
-})
-
-router.post('/workbook', jsonParser, async (req, res) => {
-  console.log(req.body)
-  const result = await insertWorkbook(req.body)
-  res.send(result)
-})
-
-router.delete('/workbook/:workbook_id', async (req, res) => {
-  const result = await deleteWorkbook(req.params.workbook_id)
-  res.send(result)
-})
-
+// TODO fix this whole pluralization mess
+// TODO if the endpoint was consistent we could
+// TODO declare a root route here: router.use('/audio', AudioRoutes)
+// TODO instead of having to declare it down in the specific routers
 router.use(AudioRoutes)
 router.use(PhraseRoutes)
+router.use(WorkbookRoutes)
 
 export default router
