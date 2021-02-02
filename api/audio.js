@@ -15,7 +15,7 @@ router.route('/audio')
     const values = [req.body, req.get('Filename'), req.get('Content-Type')]
     const result = await query(text, values)
 
-    res.send(result[0])
+    res.send(result.rows[0])
   })
 
 router.route('/audio/:id')
