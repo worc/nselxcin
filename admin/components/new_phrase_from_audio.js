@@ -2,36 +2,42 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Input from '../../components/input.js'
 
-export default function (audio_id) {
+export default function ({ audio_id }) {
   const [phraseId, setPhraseId] = useState('')
   const [phrase, setPhrase] = useState({})
+  const [metadata, setMetadata] = useState({})
   const [mode, setMode] = useState('edit') // or committed
 
   useEffect(() => {
     axios.post('/api/phrase', {
       salish: '',
       english: '',
-      audio_id: audio_id,
     }).then(response => {
       setPhraseId(response.data.phrase_id)
+      axios.put(`/api/phrase/${response.data.phrase_id}/audio/${audio_id}`).then(response => {
+        console.log(`phrase and audio linked`, response.data)
+      })
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get(`/api/audio/${audio_id}/metadata`).then(response => {
+      setMetadata(response.data)
     })
   }, [])
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    // todo Reply from server with data instead of persisting client-side
-    e.persist()
-
     axios.put(`/api/phrase/${phraseId}`, {
       salish: e.target.salish.value,
       english: e.target.english.value,
     }).then(response => {
-      console.log({ response })
       setPhrase({
-        salish: e.target.salish.value,
-        english: e.target.english.value,
+        salish: response.data.salish,
+        english: response.data.english,
       })
+      setMode('committed')
     })
   }
 
@@ -54,6 +60,7 @@ export default function (audio_id) {
             placeholder={ 'Hello' }
           />
           <audio controls src={ `/api/audio/${audio_id}` }/>
+          <div>{ metadata.filename }, { metadata.size }</div>
           <button>COMMIT CHANGES</button>
         </form>
     )
@@ -62,6 +69,7 @@ export default function (audio_id) {
         <div>{ phrase.salish }</div>
         <div>{ phrase.english }</div>
         <audio controls src={ `/api/audio/${audio_id}` }/>
+        <div>{ metadata.filename }, { metadata.size }</div>
         <button onClick={() => setMode('edit')}>EDIT</button>
       </div>
     )
