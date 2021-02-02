@@ -36,8 +36,8 @@ router.route('/audio')
   .post(async (req, res) => {
     const filename = req.get('Filename')
     const content_type = req.get('Content-Type')
-    const audio_id = await addAudio(req.body, filename, content_type)
-    res.send(audio_id)
+    const result = await addAudio(req.body, filename, content_type)
+    res.send(result[0])
   })
 
 router.route('/audio/:id')
