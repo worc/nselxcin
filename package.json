@@ -11,9 +11,9 @@
     "db:dump": "pg_dump -U nselxcin -d nselxcin-test -h localhost -p 5432 --format plain --file postgres/dump.sql",
     "start": "nodemon server.js --exec babel-node",
     "start:api": "nodemon db/api.js --exec babel-node",
-    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "parcel": "parcel server.js",
-    "test": "mocha --require babel-core/register --recursive test",
+    "test": "mocha --require @babel/register --recursive test",
     "watch": "webpack --config webpack.config.js --watch"
   },
   "dependencies": {
@@ -35,14 +35,17 @@
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
+    "@babel/plugin-transform-regenerator": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/register": "^7.12.13",
+    "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.5.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-regenerator": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "css-loader": "^0.28.11",
     "mocha": "^5.2.0",
@@ -51,10 +54,9 @@
     "sequelize-cli": "^4.0.0",
     "sinon": "^6.1.4",
     "style-loader": "^0.21.0",
-    "styled-components": "^3.3.3",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "^3.1.4",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-node-externals": "^1.7.2"
   }
 }
