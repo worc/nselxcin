@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function () {
+export default function Orphans () {
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [orphans, setOrphans] = useState([])
 
@@ -18,16 +18,20 @@ export default function () {
   }
 
   return (
-    <div>
-      { orphans.map(orphan => {
-        return (
-          <div key={ orphan.audio_id }>
-            <div>{ orphan.audio_id }</div>
-            <div>{ orphan.filename }</div>
-            <div id={ orphan.audio_id } onClick={ handleDelete }>DELETE</div>
-          </div>
-        )
-      })}
-    </div>
+    orphans.length
+    ? (
+      <div>
+        { orphans.map(orphan => {
+          return (
+            <div key={ orphan.audio_id }>
+              <div>{ orphan.audio_id }</div>
+              <div>{ orphan.filename }</div>
+              <div id={ orphan.audio_id } onClick={ handleDelete }>DELETE</div>
+            </div>
+          )
+        })}
+      </div>
+    )
+    : <div>No orphans</div>
   )
 }
