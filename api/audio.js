@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import query from './_query.js'
 
 async function getOrphanedAudio() {
@@ -22,9 +21,6 @@ async function deleteAudio(id) {
 }
 
 const router = express.Router()
-const jsonParser = bodyParser.json()
-
-router.use(jsonParser)
 
 router.route('/audio')
   .get(async (req, res) => {
