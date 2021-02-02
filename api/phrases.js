@@ -47,6 +47,12 @@ router.route('/phrase/:id')
     const phrase = result.rows[0]
     res.send({ ...phrase })
   })
+  .put(async (req, res) => {
+    const text = 'UPDATE phrases SET salish = $1, english = $2 WHERE phrase_id = $3 RETURNING *'
+    const values = [req.body.salish, req.body.english, req.params.id]
+    const result = await query(text, values)
+    res.send(result.rows[0])
+  })
   .delete(async (req, res) => {
     const text = `DELETE FROM phrases WHERE phrase_id = $1`
     const values = [ req.params.id ]
@@ -71,6 +77,13 @@ router.route('/phrase/:id/audio')
     await addSalishAudioToPhrase(req.params.id, req.body)
     res.send('ok')
   })
+
+router.put('/phrase/:phrase_id/audio/:audio_id', async (req, res) => {
+  const text = `UPDATE phrases SET audio_id = $2 WHERE phrase_id = $1`
+  const values = [req.params.phrase_id, req.params.audio_id]
+  await query(text, values)
+  res.send('ok')
+})
 
 router.post('/phrase', async (req, res) => {
   console.log(req.body)
