@@ -18,8 +18,10 @@ router.get('/', (req, res) => {
 
 // TODO fix this whole pluralization mess
 // TODO if the endpoint was consistent we could
-// TODO declare a root route here: router.use('/audio', AudioRoutes)
+// TODO declare a root route here: router.use('/audio', AudioRoutes) --- this is cheating since "audio" is a self-plural
 // TODO instead of having to declare it down in the specific routers
+// TODO alternatively... keep both: router.use(['/phrase', '/phrases'], PhraseRoutes)
+// TODO but how does that look to the router? how do its declarations tell the difference?
 router.use(AudioRoutes)
 router.use(PhraseRoutes)
 router.use(WorkbookRoutes)
