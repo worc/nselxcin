@@ -6,6 +6,9 @@
   "repository": "https://github.com/worc/nselxcin",
   "author": "curtis mcallister",
   "license": "MIT",
+  "engines": {
+    "node": "^14.15.4"
+  },
   "scripts": {
     "dev": "webpack-dev-server --port 8080 --progress",
     "db:dump": "pg_dump -U nselxcin -d nselxcin-test -h localhost -p 5432 --format plain --file postgres/dump.sql",
