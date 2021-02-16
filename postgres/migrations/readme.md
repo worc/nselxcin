@@ -1,0 +1,1 @@
+*pg_dump and pg_restore are half broken on Windows if using Git Bash. The commands in this file have been run just using the cmd.exe program in Windows. I imagine things are less wonky on Linux or Mac.*
