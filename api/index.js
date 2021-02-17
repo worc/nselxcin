@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 
 import AudioRoutes from './audio.js'
 import PhraseRoutes from './phrases.js'
+import SearchRoutes from './search.js'
 import WorkbookRoutes from './workbooks.js'
 
 const router = express.Router()
@@ -24,6 +25,7 @@ router.get('/', (req, res) => {
 // TODO but how does that look to the router? how do its declarations tell the difference?
 router.use(AudioRoutes)
 router.use(PhraseRoutes)
+router.use(SearchRoutes)
 router.use(WorkbookRoutes)
 
 export default router
