@@ -2,70 +2,92 @@ const path = require("path");
 
 module.exports = [
     {
-        name: "server",
-        entry: "./server.js",
-        target: "node",
-        mode: 'development',
+      name: "server",
+      entry: "./server.js",
+      target: "node",
+      mode: 'development',
 
-        output: {
-            path: path.resolve(__dirname, "dist"),
-            filename: "server.js"
-        },
+      output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "server.js",
+      },
 
-        // resolve: {
-        //     modules: ['shared', 'node_modules']
-        // },
+      // resolve: {
+      //     modules: ['shared', 'node_modules']
+      // },
 
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: "babel-loader",
-                }
-            ]
-        },
-    }, {
-        name: 'client',
-        entry: './client.js',
-        mode: 'development',
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader",
+          }
+        ]
+      },
+    },
+    {
+      name: 'client',
+      entry: './client.js',
+      mode: 'development',
 
-        output: {
-            path: path.resolve(__dirname, 'dist'),
-            filename: 'client.js',
-        },
+      output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'client.js',
+      },
 
-        // resolve: {
-        //     modules: ['shared', 'node_modules']
-        // },
+      // resolve: {
+      //     modules: ['shared', 'node_modules']
+      // },
 
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel-loader'
-                }
-            ]
-        }
-    }, {
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    },
+    {
       name: 'admin',
-        entry: './admin/client.js',
-        mode: 'development',
+      entry: './admin/client.js',
+      mode: 'development',
 
-        output: {
-          path: path.resolve(__dirname, 'dist'),
-          filename: 'admin.js'
-        },
+      output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'admin.js'
+      },
 
-        module: {
-          rules: [
-              {
-                  test: /\.js$/,
-                  exclude: /node_modules/,
-                  loader: 'babel-loader',
-              }
-          ]
-        }
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+          }
+        ]
+      },
+    },
+    {
+      name: 'search',
+      entry: './search/client.js',
+      mode: 'development',
+
+      output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'search.js',
+      },
+
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+          }
+        ]
+      },
     }
 ];
