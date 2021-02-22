@@ -11,8 +11,8 @@ router.route('/search/phrases')
       SELECT phrase_id, salish, english, vector, score
       FROM (
         SELECT 
-          to_tsvector('simple', english) AS vector,
-          ts_rank_cd(to_tsvector('simple', english), to_tsquery($1)) AS score,
+          simple_english_text_vector AS vector,
+          ts_rank_cd(simple_english_text_vector, to_tsquery($1)) AS score,
           phrase_id,
           salish,
           english
