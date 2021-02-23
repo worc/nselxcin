@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import path from 'path';
 
-import App from './src/App';
+import App from './app/index.js';
 import Admin from './admin/index.js'
 import Api from './api/index.js'
 import Search from './search/index.js'
@@ -39,19 +39,25 @@ app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.cs
 
 app.use('/api', Api);
 
-app.get('/', (req, res) => {
-    res.redirect('/app')
-})
-
-app.get(['/app', '/app/*'], (req, res) => {
+app.get('/*', (req, res) => {
     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
 
     res.status(200).send(renderPage(pageTitle, (
-        <StaticRouter context={{}} location={req.url}>
-            <App host={req.headers.host} />
-        </StaticRouter>
+      <StaticRouter context={{}} location={req.url}>
+          <App host={req.headers.host} />
+      </StaticRouter>
     )));
-});
+})
+
+// app.get(['/app', '/app/*'], (req, res) => {
+//     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
+//
+//     res.status(200).send(renderPage(pageTitle, (
+//         <StaticRouter context={{}} location={req.url}>
+//             <App host={req.headers.host} />
+//         </StaticRouter>
+//     )));
+// });
 
 app.use('/admin', Admin)
 app.use('/api', Api)
