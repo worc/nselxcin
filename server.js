@@ -6,7 +6,7 @@ import path from 'path';
 
 import App from './app/index.js';
 import Api from './api/index.js'
-import Search from './search/index.js'
+// import Search from './search/index.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,7 +32,7 @@ const renderPage = (title, app) => `
 
 app.use("/static/client.js", express.static(path.join(process.cwd(), "dist/client.js")));
 app.use("/static/client.min.js", express.static(path.join(process.cwd(), "dist/client.min.js")));
-app.use('/static/search.js', express.static(path.join(process.cwd(), 'dist/search.js')))
+// app.use('/static/search.js', express.static(path.join(process.cwd(), 'dist/search.js')))
 app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.css')));
 
 app.use('/api', Api);
@@ -57,7 +57,7 @@ app.get('/*', (req, res) => {
 //     )));
 // });
 
-app.use('/search', Search)
+// app.use('/search', Search)
 
 app.get('*', (req, res) => {
     res.status(404).send('404, not found')
