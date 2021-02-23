@@ -5,7 +5,6 @@ import { StaticRouter } from 'react-router-dom';
 import path from 'path';
 
 import App from './app/index.js';
-import Admin from './admin/index.js'
 import Api from './api/index.js'
 import Search from './search/index.js'
 
@@ -31,7 +30,6 @@ const renderPage = (title, app) => `
   </html>
 `;
 
-app.use('/static/admin.js', express.static(path.join(process.cwd(), 'dist/admin.js')))
 app.use("/static/client.js", express.static(path.join(process.cwd(), "dist/client.js")));
 app.use("/static/client.min.js", express.static(path.join(process.cwd(), "dist/client.min.js")));
 app.use('/static/search.js', express.static(path.join(process.cwd(), 'dist/search.js')))
@@ -59,8 +57,6 @@ app.get('/*', (req, res) => {
 //     )));
 // });
 
-app.use('/admin', Admin)
-app.use('/api', Api)
 app.use('/search', Search)
 
 app.get('*', (req, res) => {

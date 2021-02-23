@@ -1,7 +1,19 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+
+import Admin from './admin/app.js'
 
 export default function () {
   return (
-    <h1>Stub</h1>
+    <>
+      <Switch>
+        <Route
+          path='/admin'
+          render={( { match: { url }} ) => (
+            <Admin path={ url }/>
+          )}
+        />
+      </Switch>
+    </>
   )
 }
