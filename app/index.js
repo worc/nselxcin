@@ -27,7 +27,6 @@ const Layout = styled.div`
   flex-flow: column nowrap;
   min-height: 100vh;
   max-width: 1600px;
-  padding: 8px;
 
   & footer {
     flex: 0 0 auto;
@@ -42,6 +41,7 @@ const Main = styled.main`
   
   & section {
     flex: 1 0 auto;
+    padding: 8px;
   }
 
   & nav {

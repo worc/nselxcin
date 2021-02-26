@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
   flex-flow: row nowrap;
   justify-content: space-around;
   margin-top: 16px;
-  padding-top: 8px;
+  padding: 8px;
 `
 
 export default function () {
