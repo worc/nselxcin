@@ -8,12 +8,13 @@ router.route('/search/phrases')
     const tsquery = req.query.q.split(' ').join(' | ')
 
     const text = `
-      SELECT phrase_id, salish, english, vector, score
+      SELECT phrase_id, audio_id, salish, english, vector, score
       FROM (
         SELECT 
           simple_english_text_vector AS vector,
           ts_rank_cd(simple_english_text_vector, to_tsquery($1)) AS score,
           phrase_id,
+          audio_id,
           salish,
           english
         FROM phrases
