@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export default function () {
+export default function ({ path = '/admin' }) {
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [workbooks, setWorkbooks] = useState([])
 
@@ -39,14 +39,14 @@ export default function () {
       <GlobalStyle/>
 
       <Switch>
-        <Route exact path='/admin' render={() => (
+        <Route exact path={`${path}`} render={() => (
           <div>
             <WorkbookForm onUpdate={() => setLastUpdate(new Date())}/>
             <h3>workbooksssss</h3>
             <div>
           { workbooks.map(workbook => (
             <li id={`workbook_id_${workbook.workbook_id}`} key={workbook.workbook_id}>
-              <div><Link to={`/admin/workbook/${workbook.workbook_id}`}>{ workbook.title }</Link></div>
+              <div><Link to={`${path}/workbook/${workbook.workbook_id}`}>{ workbook.title }</Link></div>
               <div>{ workbook.subtitle }</div>
               <div>{ workbook.authors }</div>
               <div>{ workbook.edition }</div>
@@ -57,10 +57,10 @@ export default function () {
             </div>
           </div>
         )}/>
-        <Route path='/admin/workbook/:id' component={Workbook}/>
-        <Route exact path='/admin/phrases' component={Phrases}/>
-        <Route path='/admin/phrases/bulk' component={BulkUpload}/>
-        <Route path='/admin/audio/orphans' component={ Orphans } />
+        <Route path={`${path}/workbook/:id`} component={Workbook}/>
+        <Route exact path={`${path}/phrases`} component={Phrases}/>
+        <Route path={`${path}/phrases/bulk`} component={BulkUpload}/>
+        <Route path={`${path}/audio/orphans`} component={ Orphans } />
       </Switch>
     </div>
   )

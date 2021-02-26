@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Input from '../../components/input.js'
+import Input from '../../../components/input.js'
 
 export default function ({ audio_id }) {
   const [phraseId, setPhraseId] = useState('')

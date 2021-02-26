@@ -50,44 +50,4 @@ module.exports = [
         ]
       }
     },
-    {
-      name: 'admin',
-      entry: './admin/client.js',
-      mode: 'development',
-
-      output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'admin.js'
-      },
-
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-          }
-        ]
-      },
-    },
-    {
-      name: 'search',
-      entry: './search/client.js',
-      mode: 'development',
-
-      output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'search.js',
-      },
-
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-          }
-        ]
-      },
-    }
 ];

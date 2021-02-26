@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import Input from '../components/input.js'
+import Input from '../../components/input.js'
 
 export default function () {
   function handleSubmit (e) {
