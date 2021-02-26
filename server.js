@@ -2,11 +2,9 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import path from 'path';
 
 import App from './app/index.js';
 import Api from './api/index.js'
-// import Search from './search/index.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,18 +41,6 @@ app.get('/*', (req, res) => {
       </StaticRouter>
     )));
 })
-
-// app.get(['/app', '/app/*'], (req, res) => {
-//     let pageTitle = 'Thunder Rolling to Higher Mountainsides';
-//
-//     res.status(200).send(renderPage(pageTitle, (
-//         <StaticRouter context={{}} location={req.url}>
-//             <App host={req.headers.host} />
-//         </StaticRouter>
-//     )));
-// });
-
-// app.use('/search', Search)
 
 app.get('*', (req, res) => {
     res.status(404).send('404, not found')
