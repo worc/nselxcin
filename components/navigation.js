@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 const StyledNav = styled.nav`
   margin-left: 8px;
-  
+
   ul {
     list-style-type: none;
     margin: 0;
@@ -15,6 +15,10 @@ const StyledNav = styled.nav`
     margin-inline-start: 24px;
   }
   
+  li {
+    padding: 0;
+  }
+
   a {
     color: #2fb6d4;
     display: block;

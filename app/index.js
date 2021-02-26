@@ -19,6 +19,10 @@ const GlobalStyles = createGlobalStyle`
   
   ul, ol {
     list-style-type: none;
+    
+    li {
+      padding: 16px 0;
+    }
   }
 
   .salish {

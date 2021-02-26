@@ -36,7 +36,7 @@ export default function ({ path = '/admin' }) {
             <h3>workbooksssss</h3>
             <ul>
           { workbooks.map(workbook => (
-            <li id={`workbook_id_${workbook.workbook_id}`} style={{ padding: '16px 0' }} key={workbook.workbook_id}>
+            <li id={`workbook_id_${workbook.workbook_id}`} key={workbook.workbook_id}>
               <div><Link to={`${path}/workbook/${workbook.workbook_id}`}>{ workbook.title }</Link></div>
               <div>{ workbook.subtitle }</div>
               <div>{ workbook.authors }</div>
