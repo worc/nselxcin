@@ -1,0 +1,63 @@
+/* sans regular */
+@font-face {
+    font-family: "Aboriginal Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/AboriginalSansREGULAR.ttf");
+}
+
+/* sans italic */
+@font-face {
+    font-family: "Aboriginal Sans";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/fonts/AboriginalSansITALIC.ttf");
+}
+
+/* sans bold */
+@font-face {
+    font-family: "Aboriginal Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/AboriginalSansBOLD.ttf")
+}
+
+/* sans italic bold */
+@font-face {
+    font-family: "Aboriginal Sans";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/fonts/AboriginalSansBOLDITALIC.ttf")
+}
+
+/* serif regular */
+@font-face {
+    font-family: "Aboriginal Serif";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/AboriginalSerifREGULAR.ttf");
+}
+
+/* serif italic */
+@font-face {
+    font-family: "Aboriginal Serif";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/fonts/AboriginalSerifITALIC.ttf");
+}
+
+/* serif bold */
+@font-face {
+    font-family: "Aboriginal Serif";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/AboriginalSerifBOLD.ttf");
+}
+
+/* serif italic bold */
+@font-face {
+    font-family: "Aboriginal Serif";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/fonts/AboriginalSerifBOLDITALIC.ttf");
+}

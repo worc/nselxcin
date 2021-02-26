@@ -13,8 +13,7 @@ const renderPage = (title, app) => `
   <!DOCTYPE html>
     <html lang="en">
       <style>html, body, #app { height: 100%; margin: 0; }</style> 
-      <link href="/static/styles.css" rel="stylesheet" type="text/css   ">
-      <link href="https://fonts.googleapis.com/css?family=Rammetto+One|Lato" rel="stylesheet">
+      <link href="/fonts/font_faces.css" rel="stylesheet">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <head>
         <title>${title}</title>
@@ -28,6 +27,7 @@ const renderPage = (title, app) => `
   </html>
 `;
 
+app.use('/fonts', express.static('fonts'))
 app.use('/static', express.static('dist'))
 
 app.use('/api', Api);
