@@ -16,6 +16,10 @@ const GlobalStyles = createGlobalStyle`
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
+  
+  ul, ol {
+    list-style-type: none;
+  }
 
   .salish {
     color: #2fb6d4;
