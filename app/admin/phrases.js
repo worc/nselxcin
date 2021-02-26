@@ -79,9 +79,9 @@ export default function () {
             <div>{ phrase.english }</div>
             <div>{ (phrase.size / 1024).toFixed(2)} KB</div>
             <audio controls src={ `/api/phrase/${phrase.phrase_id}/audio` }/>
-            <div style={{ border: '2px solid red'}} onClick={e => {
+            <span style={{ border: '2px solid red'}} onClick={e => {
               handleDelete(phrase.phrase_id).then(() => setLastUpdate(new Date()))
-            }}>DELETE</div>
+            }}>DELETE</span>
           </li>
         ))
       }
