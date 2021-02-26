@@ -30,10 +30,7 @@ const renderPage = (title, app) => `
   </html>
 `;
 
-app.use("/static/client.js", express.static(path.join(process.cwd(), "dist/client.js")));
-app.use("/static/client.min.js", express.static(path.join(process.cwd(), "dist/client.min.js")));
-// app.use('/static/search.js', express.static(path.join(process.cwd(), 'dist/search.js')))
-app.use('/static/styles.css', express.static(path.join(process.cwd(), 'styles.css')));
+app.use('/static', express.static('dist'))
 
 app.use('/api', Api);
 
