@@ -51,7 +51,7 @@ export default function ({ path = '/admin' }) {
               <div>{ workbook.authors }</div>
               <div>{ workbook.edition }</div>
               <div>{ workbook.version }</div>
-              <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
+              <span style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</span>
             </li>
             ))}
             </div>
