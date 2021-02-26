@@ -32,7 +32,7 @@ export default function () {
         { results.map(result => (
           <li key={result.phrase_id}>
             <div>{ result.english }</div>
-            <div>{ result.salish }</div>
+            <div className={'salish'}>{ result.salish }</div>
             <audio controls src={`/api/audio/${result.audio_id}`}/>
           </li>
         ))}
