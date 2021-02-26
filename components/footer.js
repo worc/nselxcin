@@ -16,6 +16,7 @@ export default function () {
     <StyledFooter>
       <a href='https://github.com/worc/nselxcin'>GitHub Repo</a>
       <a href='http://www.interiorsalish.com/'>Interior Salish Resources</a>
+      <a href='http://www.languagegeek.com/'>Aboriginal Font</a>
     </StyledFooter>
   )
 }
