@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Input from '../../components/input.js'
 
 export default function () {
+  const [results, setResults] = useState([])
+
   function handleSubmit (e) {
     e.preventDefault()
 
@@ -10,6 +12,7 @@ export default function () {
 
     axios.get(`/api/search/phrases?q=${e.target.query.value}`).then(res => {
       console.log(res.data)
+      setResults(res.data)
     }).catch(err => console.error(err))
   }
 
@@ -24,6 +27,16 @@ export default function () {
         />
         <button>submit</button>
       </form>
+      <hr/>
+      <ol>
+        { results.map(result => (
+          <li key={result.phrase_id}>
+            <div>{ result.english }</div>
+            <div>{ result.salish }</div>
+            <audio controls src={`/api/audio/${result.audio_id}`}/>
+          </li>
+        ))}
+      </ol>
     </>
   )
 }
