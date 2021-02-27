@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
   flex-flow: row nowrap;
   justify-content: space-around;
   margin-top: 16px;
-  padding-top: 8px;
+  padding: 8px;
 `
 
 export default function () {
@@ -16,6 +16,7 @@ export default function () {
     <StyledFooter>
       <a href='https://github.com/worc/nselxcin'>GitHub Repo</a>
       <a href='http://www.interiorsalish.com/'>Interior Salish Resources</a>
+      <a href='http://www.languagegeek.com/'>Aboriginal Font</a>
     </StyledFooter>
   )
 }

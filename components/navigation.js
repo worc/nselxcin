@@ -1,20 +1,51 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
+
+const StyledNav = styled.nav`
+  margin-left: 8px;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul ul {
+    margin-inline-start: 24px;
+  }
+  
+  li {
+    padding: 0;
+  }
+
+  a {
+    color: #2fb6d4;
+    display: block;
+    padding: 4px;
+    text-decoration: none;
+  }
+  
+  a.selected {
+    background-color: #2fb6d4;
+    color: white;
+  }
+`
 
 export default function () {
   return (
-    <nav>
+    <StyledNav>
       <ul>
         <li>
-          <Link to='/admin'>Admin</Link>
+          <NavLink exact to='/admin' activeClassName='selected'>Admin</NavLink>
           <ul>
-            <li><Link to='/admin/phrases'>Phrases</Link></li>
-            <li><Link to='/admin/phrases/bulk'>Bulk Phrase Upload</Link></li>
-            <li><Link to='/admin/audio/orphans'>Orphaned Audio</Link></li>
+            <li><NavLink exact to='/admin/phrases' activeClassName='selected'>Phrases</NavLink></li>
+            <li><NavLink to='/admin/phrases/bulk' activeClassName='selected'>Bulk Phrase Upload</NavLink></li>
+            <li><NavLink to='/admin/audio/orphans' activeClassName='selected'>Orphaned Audio</NavLink></li>
           </ul>
         </li>
-        <li><Link to='/search'>Search</Link></li>
+        <li><NavLink to='/search' activeClassName='selected'>Search</NavLink></li>
       </ul>
-    </nav>
+    </StyledNav>
   )
 }

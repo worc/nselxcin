@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { createGlobalStyle } from 'styled-components'
 import { Link, Switch, Route } from 'react-router-dom'
 
 import Phrases from './phrases.js'
@@ -12,12 +11,6 @@ import Orphans from './orphans.js'
 function testDelete(workbook_id) {
   return axios.delete(`/api/workbook/${workbook_id}`).then(res => console.log(res)).catch(err => console.error(err))
 }
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-`
 
 export default function ({ path = '/admin' }) {
   const [lastUpdate, setLastUpdate] = useState(new Date())
@@ -36,14 +29,12 @@ export default function ({ path = '/admin' }) {
 
   return (
     <div>
-      <GlobalStyle/>
-
       <Switch>
         <Route exact path={`${path}`} render={() => (
           <div>
             <WorkbookForm onUpdate={() => setLastUpdate(new Date())}/>
             <h3>workbooksssss</h3>
-            <div>
+            <ul>
           { workbooks.map(workbook => (
             <li id={`workbook_id_${workbook.workbook_id}`} key={workbook.workbook_id}>
               <div><Link to={`${path}/workbook/${workbook.workbook_id}`}>{ workbook.title }</Link></div>
@@ -51,10 +42,10 @@ export default function ({ path = '/admin' }) {
               <div>{ workbook.authors }</div>
               <div>{ workbook.edition }</div>
               <div>{ workbook.version }</div>
-              <div style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</div>
+              <span style={{ border: '2px solid red'}} onClick={() => request(() => testDelete(workbook.workbook_id))}>DELETE</span>
             </li>
             ))}
-            </div>
+            </ul>
           </div>
         )}/>
         <Route path={`${path}/workbook/:id`} component={Workbook}/>

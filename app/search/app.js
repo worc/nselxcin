@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
 import Input from '../../components/input.js'
+
+const StyledResults = styled.ol`
+  li {
+    margin: 8px 0;
+  }
+`
 
 export default function () {
   const [results, setResults] = useState([])
@@ -28,15 +35,15 @@ export default function () {
         <button>submit</button>
       </form>
       <hr/>
-      <ol>
+      <StyledResults>
         { results.map(result => (
           <li key={result.phrase_id}>
             <div>{ result.english }</div>
-            <div>{ result.salish }</div>
-            <audio controls src={`/api/audio/${result.audio_id}`}/>
+            <div className={'salish'}>{ result.salish }</div>
+            <audio preload='metadata' controls src={`/api/audio/${result.audio_id}`}/>
           </li>
         ))}
-      </ol>
+      </StyledResults>
     </>
   )
 }

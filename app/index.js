@@ -10,10 +10,23 @@ import Footer from '../components/footer.js'
 const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
+    font-family: "Aboriginal Sans", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
+  }
+  
+  ul, ol {
+    list-style-type: none;
+    
+    li {
+      padding: 16px 0;
+    }
+  }
+
+  .salish {
+    color: #2fb6d4;
   }
 `
 
@@ -22,7 +35,6 @@ const Layout = styled.div`
   flex-flow: column nowrap;
   min-height: 100vh;
   max-width: 1600px;
-  padding: 8px;
 
   & footer {
     flex: 0 0 auto;
@@ -37,6 +49,7 @@ const Main = styled.main`
   
   & section {
     flex: 1 0 auto;
+    padding: 8px;
   }
 
   & nav {

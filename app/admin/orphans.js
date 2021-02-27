@@ -20,17 +20,17 @@ export default function Orphans () {
   return (
     orphans.length
     ? (
-      <div>
+      <ul>
         { orphans.map(orphan => {
           return (
-            <div key={ orphan.audio_id }>
+            <li key={ orphan.audio_id }>
               <div>{ orphan.audio_id }</div>
               <div>{ orphan.filename }</div>
-              <div id={ orphan.audio_id } onClick={ handleDelete }>DELETE</div>
-            </div>
+              <span style={{ border: '2px solid red' }} id={ orphan.audio_id } onClick={ handleDelete }>DELETE</span>
+            </li>
           )
         })}
-      </div>
+      </ul>
     )
     : <div>No orphans</div>
   )

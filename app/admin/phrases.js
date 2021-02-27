@@ -72,19 +72,21 @@ export default function () {
           <button>submit</button>
         </form>
       <h1>Phrases</h1>
-      {
-        phrases.map(phrase => (
-          <li>
-            <div>{ phrase.salish }</div>
-            <div>{ phrase.english }</div>
-            <div>{ (phrase.size / 1024).toFixed(2)} KB</div>
-            <audio controls src={ `/api/phrase/${phrase.phrase_id}/audio` }/>
-            <div style={{ border: '2px solid red'}} onClick={e => {
-              handleDelete(phrase.phrase_id).then(() => setLastUpdate(new Date()))
-            }}>DELETE</div>
-          </li>
-        ))
-      }
+      <ul>
+        {
+          phrases.map(phrase => (
+            <li>
+              <div className={'salish'}>{ phrase.salish }</div>
+              <div>{ phrase.english }</div>
+              <div>{ (phrase.size / 1024).toFixed(2)} KB</div>
+              <audio controls src={ `/api/phrase/${phrase.phrase_id}/audio` }/>
+              <span style={{ border: '2px solid red'}} onClick={e => {
+                handleDelete(phrase.phrase_id).then(() => setLastUpdate(new Date()))
+              }}>DELETE</span>
+            </li>
+          ))
+        }
+      </ul>
     </React.Fragment>
   )
 }
