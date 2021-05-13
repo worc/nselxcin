@@ -1,13 +1,7 @@
-const { Client } = require('pg')
+const { migrationClient } = require('./_migration_client.js')
 
 async function setup ({ log }) {
-  const client = new Client({
-    database: 'nselxcin-test',
-    host: 'localhost',
-    password: 'salish',
-    port: 5432,
-    user: 'nselxcin',
-  })
+  const client = migrationClient()
 
   function logResponse (err, res) {
     if (log && res) {
