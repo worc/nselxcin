@@ -1,4 +1,7 @@
 import { Pool } from 'pg'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const defaultPool = new Pool({
   database: process.env.DB_NAME || 'nselxcin-test',
