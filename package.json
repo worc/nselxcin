@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "webpack-dev-server --port 8080 --progress",
     "db:dump": "pg_dump -U nselxcin -d nselxcin-test -h localhost -p 5432 --format plain --file postgres/dump.sql",
+    "serve": "npm run build && pm2 start dist/server.js",
     "start": "nodemon server.js --exec babel-node",
     "start:api": "nodemon db/api.js --exec babel-node",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
