@@ -6,6 +6,8 @@ import { StaticRouter } from 'react-router-dom';
 import App from './app/index.js';
 import Api from './api/index.js'
 
+import './newrelic.js'
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
