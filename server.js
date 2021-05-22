@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 import App from './app/index.js';
 import Api from './api/index.js'
 
-import './newrelic.js'
+import 'newrelic'
 
 dotenv.config()
 const app = express();
