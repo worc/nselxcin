@@ -1,12 +1,14 @@
 import { Pool } from 'pg'
+import dotenv from 'dotenv'
 
-// TODO parameterize or move to environment variables
+dotenv.config()
+
 const defaultPool = new Pool({
-  database: 'nselxcin-test',
-  host: 'localhost',
-  password: 'salish',
-  port: 5432,
-  user: 'nselxcin',
+  database: process.env.DB_NAME || 'nselxcin-test',
+  host: process.env.DB_HOST || 'localhost',
+  password: process.env.DB_PASSWORD || 'salish',
+  port: process.env.DB_PORT || 5432,
+  user: process.env.DB_USER || 'nselxcin',
 })
 
 export default async function (text, values = [], pool = defaultPool) {

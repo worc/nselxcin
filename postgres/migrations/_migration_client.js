@@ -1,11 +1,12 @@
+require('dotenv').config({ path: `${__dirname}/../../.env`})
 const { Client } = require('pg')
 
 module.exports.migrationClient = function migrationClient () {
   return new Client({
-    database: 'nselxcin-test',
-    host: 'localhost',
-    password: 'salish',
-    port: 5432,
-    user: 'nselxcin',
+    database: process.env.DB_NAME || 'nselxcin-test',
+    host: process.env.DB_HOST || 'localhost',
+    password: process.env.DB_PASSWORD || 'salish',
+    port: process.env.DB_PORT || 5432,
+    user: process.env.DB_USER || 'nselxcin',
   })
 }

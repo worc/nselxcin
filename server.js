@@ -2,10 +2,14 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import dotenv from 'dotenv'
 
 import App from './app/index.js';
 import Api from './api/index.js'
 
+import 'newrelic'
+
+dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 3000;
 
